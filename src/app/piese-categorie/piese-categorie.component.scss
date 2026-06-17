@@ -1,0 +1,313 @@
+:host { display: block; }
+
+// ═══════════════════════════════════════════════════════════
+// PAGE HEADER
+// ═══════════════════════════════════════════════════════════
+.page-header {
+  padding: 7rem 0 3.5rem;
+  background: var(--surface-low);
+  text-align: center;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8125rem;
+  color: var(--on-surface-var);
+
+  a {
+    color: var(--tertiary);
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+
+  .sep { opacity: 0.4; }
+}
+
+.page-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: -0.03em;
+  margin: 0 0 0.75rem;
+  line-height: 1.15;
+}
+
+.brand-highlight { color: var(--tertiary); }
+
+.page-subtitle {
+  font-size: 0.875rem;
+  color: var(--on-surface-var);
+  letter-spacing: 0.02em;
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// PIESE GRID
+// ═══════════════════════════════════════════════════════════
+.piese-section { padding: 4rem 0 5rem; }
+
+.piese-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.piesa-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-high);
+  border-radius: 0.875rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
+    border-color: var(--tertiary);
+  }
+}
+
+
+// ─── IMAGE AREA ──────────────────────────────────────────
+.piesa-img {
+  position: relative;
+  background: var(--surface-low);
+  padding: 1.75rem 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--surface-high);
+}
+
+.img-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.part-thumb {
+  width: 100%;
+  max-width: 120px;
+  height: 80px;
+  color: var(--on-surface-var);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  .piesa-card:hover & {
+    opacity: 0.85;
+    color: var(--tertiary);
+  }
+}
+
+.stare-badge {
+  position: absolute;
+  top: 0.625rem;
+  right: 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+
+  &.stare-excelenta {
+    background: rgba(0, 168, 107, 0.12);
+    color: #00a86b;
+  }
+  &.stare-buna {
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+  }
+  &.stare-acceptabila {
+    background: rgba(245, 158, 11, 0.12);
+    color: #d97706;
+  }
+}
+
+
+// ─── CARD BODY ───────────────────────────────────────────
+.piesa-body {
+  padding: 1rem 1.125rem 0.75rem;
+  flex: 1;
+}
+
+.piesa-model-tag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--on-surface-var);
+  margin: 0 0 0.3rem;
+  opacity: 0.75;
+}
+
+.piesa-titlu {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin: 0 0 0.5rem;
+  line-height: 1.35;
+}
+
+.piesa-culoare {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--on-surface-var);
+  margin: 0;
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--surface-high);
+    border: 1.5px solid var(--on-surface-var);
+    flex-shrink: 0;
+  }
+}
+
+
+// ─── CARD FOOTER ─────────────────────────────────────────
+.piesa-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.125rem 1rem;
+  border-top: 1px solid var(--surface-high);
+  gap: 0.5rem;
+}
+
+.piesa-pret-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.piesa-pret {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+}
+
+.piesa-cod {
+  font-size: 0.6875rem;
+  color: var(--on-surface-var);
+  letter-spacing: 0.05em;
+  opacity: 0.65;
+}
+
+.btn-detalii {
+  flex-shrink: 0;
+  background: var(--tertiary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover { filter: brightness(0.9); }
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// CTA
+// ═══════════════════════════════════════════════════════════
+.cta-section {
+  background: linear-gradient(135deg, var(--on-surface) 0%, #404a52 100%);
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -5%;
+    top: -40%;
+    width: 40%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(0, 108, 91, 0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+}
+
+.cta-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.cta-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.cta-buttons { flex-shrink: 0; }
+
+.cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  color: var(--on-surface);
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.2s;
+
+  &:hover { filter: brightness(0.94); }
+}
+
+
+// ═══════════════════════════════════════════════════════════
+// RESPONSIVE
+// ═══════════════════════════════════════════════════════════
+@media (max-width: 1200px) {
+  .piese-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 860px) {
+  .piese-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .cta-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .piese-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+}

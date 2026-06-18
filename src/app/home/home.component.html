@@ -159,7 +159,7 @@
     </p>
 
     <div class="search-bar">
-      <select class="search-select">
+      <select class="search-select" #brandSel>
         <option value="">Marcă</option>
         @for (brand of brands; track brand) {
           <option>{{ brand }}</option>
@@ -190,7 +190,7 @@
         placeholder="sau caută după VIN / Cod piesă…"
       />
 
-      <button class="btn-primary search-btn">
+      <button class="btn-primary search-btn" (click)="cautaMarca(brandSel.value)">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>

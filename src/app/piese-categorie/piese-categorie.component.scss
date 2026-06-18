@@ -1,20 +1,18 @@
 :host { display: block; }
 
 // ═══════════════════════════════════════════════════════════
-// PAGE HEADER
+// HEADER MAȘINĂ
 // ═══════════════════════════════════════════════════════════
-.page-header {
-  padding: 7rem 0 3.5rem;
+.masina-header {
+  padding: 6.5rem 0 3rem;
   background: var(--surface-low);
-  text-align: center;
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
   font-size: 0.8125rem;
   color: var(--on-surface-var);
 
@@ -24,203 +22,320 @@
     font-weight: 600;
     &:hover { text-decoration: underline; }
   }
-
   .sep { opacity: 0.4; }
 }
 
-.page-title {
-  font-family: 'Manrope', sans-serif;
-  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
-  font-weight: 800;
-  color: var(--on-surface);
-  letter-spacing: -0.03em;
-  margin: 0 0 0.75rem;
-  line-height: 1.15;
-}
-
-.brand-highlight { color: var(--tertiary); }
-
-.page-subtitle {
-  font-size: 0.875rem;
-  color: var(--on-surface-var);
-  letter-spacing: 0.02em;
-}
-
-
-// ═══════════════════════════════════════════════════════════
-// PIESE GRID
-// ═══════════════════════════════════════════════════════════
-.piese-section { padding: 4rem 0 5rem; }
-
-.piese-grid {
+.header-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
 }
 
-.piesa-card {
-  background: var(--surface);
-  border: 1px solid var(--surface-high);
-  border-radius: 0.875rem;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.07);
-    border-color: var(--tertiary);
-  }
-}
-
-
-// ─── IMAGE AREA ──────────────────────────────────────────
-.piesa-img {
+// ─── POZA mașinii ─────────────────────────────────────────
+.masina-foto {
   position: relative;
-  background: var(--surface-low);
-  padding: 1.75rem 1.25rem 1.5rem;
+  aspect-ratio: 16 / 10;
+  border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid var(--surface-high);
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16);
 }
 
-.img-inner {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.car-thumb {
+  width: 78%;
+  height: auto;
+  color: rgba(255, 255, 255, 0.88);
 }
 
-.part-thumb {
-  width: 100%;
-  max-width: 120px;
-  height: 80px;
-  color: var(--on-surface-var);
-  opacity: 0.6;
-  transition: opacity 0.2s;
-
-  .piesa-card:hover & {
-    opacity: 0.85;
-    color: var(--tertiary);
-  }
-}
-
-.stare-badge {
+.cod-parc {
   position: absolute;
-  top: 0.625rem;
-  right: 0.625rem;
+  bottom: 0.85rem;
+  right: 0.95rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.375rem;
+  backdrop-filter: blur(2px);
+}
+
+// ─── INFO ─────────────────────────────────────────────────
+.status-badge {
+  display: inline-block;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
   text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(0, 168, 107, 0.14);
+  color: #00a86b;
+  margin-bottom: 0.85rem;
 
-  &.stare-excelenta {
-    background: rgba(0, 168, 107, 0.12);
-    color: #00a86b;
-  }
-  &.stare-buna {
-    background: rgba(37, 99, 235, 0.1);
-    color: #2563eb;
-  }
-  &.stare-acceptabila {
-    background: rgba(245, 158, 11, 0.12);
+  &.status-activ {
+    background: rgba(217, 119, 6, 0.14);
     color: #d97706;
   }
 }
 
-
-// ─── CARD BODY ───────────────────────────────────────────
-.piesa-body {
-  padding: 1rem 1.125rem 0.75rem;
-  flex: 1;
+.masina-titlu {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0 0 1.5rem;
 }
 
-.piesa-model-tag {
+.brand-highlight { color: var(--tertiary); }
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.spec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.spec-k {
   font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--on-surface-var);
-  margin: 0 0 0.3rem;
   opacity: 0.75;
 }
 
-.piesa-titlu {
-  font-family: 'Manrope', sans-serif;
+.spec-v {
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--on-surface);
-  margin: 0 0 0.5rem;
-  line-height: 1.35;
 }
 
-.piesa-culoare {
-  display: flex;
+.btn-cere-tot {
+  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-size: 0.75rem;
-  color: var(--on-surface-var);
-  margin: 0;
+  background: var(--tertiary);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  transition: filter 0.2s;
 
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--surface-high);
-    border: 1.5px solid var(--on-surface-var);
-    flex-shrink: 0;
-  }
+  &:hover { filter: brightness(0.92); }
 }
 
 
-// ─── CARD FOOTER ─────────────────────────────────────────
-.piesa-footer {
+// ═══════════════════════════════════════════════════════════
+// CHECKLIST PIESE
+// ═══════════════════════════════════════════════════════════
+.piese-section { padding: 3rem 0 5rem; }
+
+.piese-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1.125rem 1rem;
-  border-top: 1px solid var(--surface-high);
-  gap: 0.5rem;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
 }
 
-.piesa-pret-wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.piesa-pret {
+.piese-titlu-sectiune {
   font-family: 'Manrope', sans-serif;
-  font-size: 1.0625rem;
+  font-size: 1.375rem;
   font-weight: 800;
   color: var(--on-surface);
   letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.filtru-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--surface);
+  border: 1px solid var(--surface-high);
+  color: var(--on-surface-var);
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  .check-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 0.25rem;
+    border: 1.5px solid var(--on-surface-var);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    line-height: 1;
+    color: #fff;
+  }
+
+  &.active {
+    border-color: var(--tertiary);
+    color: var(--tertiary);
+    .check-box {
+      background: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+  }
+}
+
+// ─── GRUPA ────────────────────────────────────────────────
+.grupa-block {
+  background: var(--surface);
+  border: 1px solid var(--surface-high);
+  border-radius: 0.875rem;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+.grupa-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1.25rem;
+  background: var(--surface-low);
+  border-bottom: 1px solid var(--surface-high);
+}
+
+.grupa-nume {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.grupa-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface-var);
+}
+
+// ─── RÂND PIESĂ ───────────────────────────────────────────
+.piesa-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.piesa-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.8rem 1.25rem;
+  border-bottom: 1px solid var(--surface-high);
+
+  &:last-child { border-bottom: none; }
+
+  &.indisp { opacity: 0.55; }
+}
+
+.piesa-marker {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: rgba(120, 120, 120, 0.15);
+  color: var(--on-surface-var);
+
+  &.on {
+    background: rgba(0, 168, 107, 0.15);
+    color: #00a86b;
+  }
+}
+
+.piesa-nume-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.piesa-nume {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--on-surface);
 }
 
 .piesa-cod {
   font-size: 0.6875rem;
   color: var(--on-surface-var);
-  letter-spacing: 0.05em;
-  opacity: 0.65;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
 }
 
-.btn-detalii {
+.stare-badge {
+  flex-shrink: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+
+  &.stare-excelenta { background: rgba(0, 168, 107, 0.12); color: #00a86b; }
+  &.stare-buna      { background: rgba(37, 99, 235, 0.1);  color: #2563eb; }
+  &.stare-acceptabila { background: rgba(245, 158, 11, 0.12); color: #d97706; }
+}
+
+.piesa-pret {
+  flex-shrink: 0;
+  min-width: 84px;
+  text-align: right;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: -0.01em;
+}
+
+.btn-cere {
   flex-shrink: 0;
   background: var(--tertiary);
   color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
+  text-decoration: none;
+  padding: 0.4rem 0.95rem;
   border-radius: 0.375rem;
   font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
+  font-weight: 700;
   transition: filter 0.2s;
 
   &:hover { filter: brightness(0.9); }
+}
+
+.indisp-text {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--on-surface-var);
+  font-style: italic;
 }
 
 
@@ -268,6 +383,7 @@
   color: rgba(255, 255, 255, 0.65);
   font-size: 0.9375rem;
   line-height: 1.65;
+  max-width: 520px;
 }
 
 .cta-buttons { flex-shrink: 0; }
@@ -293,21 +409,22 @@
 // ═══════════════════════════════════════════════════════════
 // RESPONSIVE
 // ═══════════════════════════════════════════════════════════
-@media (max-width: 1200px) {
-  .piese-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 860px) {
-  .piese-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
+  .header-grid { grid-template-columns: 1fr; gap: 1.75rem; }
+  .spec-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
-  .cta-content {
-    flex-direction: column;
-    text-align: center;
-  }
+  .cta-content { flex-direction: column; text-align: center; .cta-subtitle { margin: 0 auto; } }
 }
 
-@media (max-width: 480px) {
-  .piese-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+@media (max-width: 560px) {
+  .spec-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .piesa-row {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+  .piesa-nume-wrap { flex-basis: calc(100% - 32px); }
+  .piesa-pret { min-width: 0; margin-left: auto; }
 }

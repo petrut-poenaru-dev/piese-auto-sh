@@ -30,117 +30,198 @@
 
 .page-title {
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.875rem, 4vw, 3rem);
   font-weight: 800;
   color: var(--on-surface);
   letter-spacing: -0.03em;
   margin: 0 0 1rem;
 }
 
-.brand-highlight {
-  color: var(--tertiary);
-}
+.brand-highlight { color: var(--tertiary); }
 
 .page-subtitle {
   color: var(--on-surface-var);
   font-size: 1rem;
   line-height: 1.75;
-  max-width: 520px;
+  max-width: 540px;
   margin: 0 auto;
 }
 
 
 // ═══════════════════════════════════════════════════════════
-// CATEGORII GRID
+// MAȘINI GRID
 // ═══════════════════════════════════════════════════════════
-.categorii-section {
-  padding: 5rem 0;
+.masini-section { padding: 4rem 0 5rem; }
+
+.rezultate-info {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--on-surface-var);
+  margin: 0 0 1.5rem;
 }
 
-.categorii-grid {
+.masini-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-.cat-card {
+.masina-card {
   background: var(--surface);
   border: 1px solid var(--surface-high);
   border-radius: 0.875rem;
-  padding: 1.75rem 1.5rem 1.25rem;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.09);
     border-color: var(--tertiary);
 
-    .cat-arrow { opacity: 1; transform: translateX(0); }
-    .cat-name  { color: var(--tertiary); }
-    .cat-icon-wrap svg { color: var(--tertiary); }
+    .masina-arrow { color: var(--tertiary); }
+    .car-thumb { transform: scale(1.04); }
   }
 }
 
-.cat-icon-wrap {
-  height: 56px;
+// ─── "POZA" mașinii ──────────────────────────────────────
+.masina-img {
+  position: relative;
+  aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
-
-  svg {
-    height: 100%;
-    width: auto;
-    max-width: 80px;
-    color: var(--on-surface);
-    transition: color 0.25s;
-  }
+  justify-content: center;
+  overflow: hidden;
 }
 
-.cat-body {
+.car-thumb {
+  width: 76%;
+  height: auto;
+  color: rgba(255, 255, 255, 0.85);
+  transition: transform 0.3s ease;
+}
+
+.status-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(0, 168, 107, 0.92);
+  color: #fff;
+
+  &.status-activ { background: rgba(217, 119, 6, 0.95); }
+}
+
+.an-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.32);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.375rem;
+  backdrop-filter: blur(2px);
+}
+
+// ─── INFO ─────────────────────────────────────────────────
+.masina-body {
+  padding: 1.125rem 1.25rem 0.5rem;
   flex: 1;
 }
 
-.cat-name {
+.masina-model {
   font-family: 'Manrope', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.0625rem;
+  font-weight: 800;
   color: var(--on-surface);
-  margin: 0 0 0.4rem;
-  transition: color 0.2s;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
 }
 
-.cat-descriere {
+.masina-specs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.8125rem;
   color: var(--on-surface-var);
-  line-height: 1.6;
-  margin: 0;
+  margin-bottom: 0.75rem;
+
+  .dot-sep { opacity: 0.4; }
 }
 
-.cat-footer {
+.masina-meta {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.meta-pill {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--on-surface-var);
+  background: var(--surface-low);
+  border: 1px solid var(--surface-high);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+// ─── FOOTER ───────────────────────────────────────────────
+.masina-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 0.75rem;
+  padding: 0.875rem 1.25rem 1.125rem;
+  margin-top: 0.5rem;
   border-top: 1px solid var(--surface-high);
 }
 
-.cat-count {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--tertiary);
-  letter-spacing: 0.02em;
+.piese-count {
+  font-size: 0.78rem;
+  color: var(--on-surface-var);
+
+  strong {
+    color: var(--tertiary);
+    font-size: 0.95rem;
+    font-weight: 800;
+  }
 }
 
-.cat-arrow {
-  font-size: 0.875rem;
-  color: var(--tertiary);
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+.masina-arrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--on-surface-var);
+  transition: color 0.2s;
+}
+
+// ─── EMPTY STATE ──────────────────────────────────────────
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+
+  h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: var(--on-surface);
+    margin: 0 0 0.75rem;
+  }
+  p {
+    color: var(--on-surface-var);
+    max-width: 440px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.7;
+  }
 }
 
 
@@ -214,12 +295,8 @@
 // ═══════════════════════════════════════════════════════════
 // RESPONSIVE
 // ═══════════════════════════════════════════════════════════
-@media (max-width: 1200px) {
-  .categorii-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media (max-width: 900px) {
-  .categorii-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 1100px) {
+  .masini-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -230,6 +307,6 @@
   }
 }
 
-@media (max-width: 480px) {
-  .categorii-grid { grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
+@media (max-width: 560px) {
+  .masini-grid { grid-template-columns: 1fr; }
 }

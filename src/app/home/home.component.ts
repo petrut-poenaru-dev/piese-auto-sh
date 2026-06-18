@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { masiniVanzare, masiniDezmembrat } from '../shared/masini.data';
 
 @Component({
@@ -10,7 +10,18 @@ import { masiniVanzare, masiniDezmembrat } from '../shared/masini.data';
 })
 export class HomeComponent {
 
+  constructor(private router: Router) {}
+
   brands = ['Audi', 'BMW', 'Mercedes', 'Volkswagen', 'Toyota', 'Ford', 'Renault', 'Opel'];
+
+  // Bara de căutare: marcă → lista de mașini de dezmembrat ale mărcii
+  cautaMarca(brand: string): void {
+    if (brand) {
+      this.router.navigate(['/marci', brand.toLowerCase()]);
+    } else {
+      this.router.navigate(['/marci']);
+    }
+  }
 
   products = [
     {

@@ -21,7 +21,7 @@
 
     <div class="brands-grid">
       @for (brand of brands; track brand.name) {
-        <a class="brand-card" [routerLink]="['/marci', brand.name.toLowerCase()]">
+        <a class="brand-card" [routerLink]="['/marci', brand.key]">
 
           <div class="brand-logo-wrap">
             @if (brand.svg === 'audi') {
@@ -108,7 +108,10 @@
 
           <div class="brand-info">
             <span class="brand-name">{{ brand.name }}</span>
-            <span class="brand-count">{{ brand.piese | number }} piese</span>
+            <span class="brand-count">
+              {{ stat(brand.key).masini }} {{ stat(brand.key).masini === 1 ? 'mașină' : 'mașini' }} ·
+              {{ stat(brand.key).piese | number }} piese
+            </span>
           </div>
 
           <span class="brand-arrow">&rarr;</span>

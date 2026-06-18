@@ -1,187 +1,110 @@
+@if (masina) {
+
 <!-- ═══════════════════════════════════════════════
-     PAGE HEADER
+     HEADER MAȘINĂ (o singură poză)
 ═══════════════════════════════════════════════ -->
-<section class="page-header">
+<section class="masina-header">
   <div class="container">
     <nav class="breadcrumb">
       <a routerLink="/marci">Mărci</a>
       <span class="sep">›</span>
       <a [routerLink]="['/marci', brand]">{{ brandName }}</a>
       <span class="sep">›</span>
-      <span>{{ categorieNume }}</span>
+      <span>{{ masina.model }}</span>
     </nav>
-    <h1 class="page-title">
-      {{ categorieNume }}
-      <span class="brand-highlight">{{ brandName }}</span>
-    </h1>
-    <p class="page-subtitle">
-      {{ piese.length }} piese disponibile în stoc · originale din dezmembrări · garanție inclusă
-    </p>
+
+    <div class="header-grid">
+
+      <!-- POZA -->
+      <div class="masina-foto" [style.background]="masina.bg">
+        <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" class="car-thumb">
+          <path d="M22 62 Q22 50 38 48 L70 44 Q86 32 110 32 L150 34 Q170 36 184 50 L196 54 Q204 56 204 62 L204 66 Q204 68 200 68 L24 68 Q22 68 22 66 Z"
+                fill="rgba(255,255,255,0.06)" stroke="currentColor" stroke-width="2.2"/>
+          <path d="M74 44 L106 34 L146 36 L168 48 Z" fill="none" stroke="currentColor" stroke-width="1.8" opacity="0.55"/>
+          <line x1="120" y1="35" x2="118" y2="47" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+          <circle cx="68"  cy="68" r="13" fill="rgba(0,0,0,0.25)" stroke="currentColor" stroke-width="3"/>
+          <circle cx="68"  cy="68" r="5"  fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="166" cy="68" r="13" fill="rgba(0,0,0,0.25)" stroke="currentColor" stroke-width="3"/>
+          <circle cx="166" cy="68" r="5"  fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="cod-parc">{{ masina.cod }}</span>
+      </div>
+
+      <!-- INFO -->
+      <div class="masina-info">
+        <span class="status-badge" [class.status-activ]="masina.status === 'Dezmembrare activă'">
+          {{ masina.status }}
+        </span>
+        <h1 class="masina-titlu">
+          {{ masina.brand }} <span class="brand-highlight">{{ masina.model }}</span>
+        </h1>
+
+        <div class="spec-grid">
+          <div class="spec"><span class="spec-k">An</span><span class="spec-v">{{ masina.an }}</span></div>
+          <div class="spec"><span class="spec-k">Motor</span><span class="spec-v">{{ masina.motor }}</span></div>
+          <div class="spec"><span class="spec-k">Cutie</span><span class="spec-v">{{ masina.cutie }}</span></div>
+          <div class="spec"><span class="spec-k">Caroserie</span><span class="spec-v">{{ masina.caroserie }}</span></div>
+          <div class="spec"><span class="spec-k">Combustibil</span><span class="spec-v">{{ masina.combustibil }}</span></div>
+          <div class="spec"><span class="spec-k">Rulaj</span><span class="spec-v">{{ masina.km }}</span></div>
+          <div class="spec"><span class="spec-k">Culoare</span><span class="spec-v">{{ masina.culoare }}</span></div>
+          <div class="spec"><span class="spec-k">Disponibile</span><span class="spec-v">{{ masina.totalPiese }} / {{ masina.totalCatalog }} piese</span></div>
+        </div>
+
+        <a routerLink="/contact" class="btn-cere-tot">Cere ofertă pentru această mașină</a>
+      </div>
+
+    </div>
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════════════════
-     PIESE GRID
+     CHECKLIST PIESE
 ═══════════════════════════════════════════════ -->
 <section class="piese-section">
   <div class="container">
 
-    <div class="piese-grid">
-      @for (piesa of piese; track piesa.id) {
-        <div class="piesa-card">
-
-          <!-- IMAGE PLACEHOLDER -->
-          <div class="piesa-img">
-            <div class="img-inner">
-              <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" class="part-thumb">
-
-                <!-- BARA FAȚĂ -->
-                @if (slug === 'bara-fata') {
-                  <rect x="8" y="24" width="104" height="32" rx="16" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <rect x="22" y="30" width="20" height="20" rx="4" fill="currentColor" opacity="0.15"/>
-                  <rect x="78" y="30" width="20" height="20" rx="4" fill="currentColor" opacity="0.15"/>
-                  <rect x="46" y="29" width="28" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
-                  <line x1="8" y1="40" x2="2" y2="40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <line x1="112" y1="40" x2="118" y2="40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                }
-
-                <!-- BARA SPATE -->
-                @if (slug === 'bara-spate') {
-                  <rect x="8" y="24" width="104" height="32" rx="16" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <rect x="20" y="30" width="16" height="20" rx="4" fill="currentColor" opacity="0.15"/>
-                  <rect x="84" y="30" width="16" height="20" rx="4" fill="currentColor" opacity="0.15"/>
-                  <circle cx="42" cy="58" r="5" fill="none" stroke="currentColor" stroke-width="2.5"/>
-                  <circle cx="78" cy="58" r="5" fill="none" stroke="currentColor" stroke-width="2.5"/>
-                  <line x1="8" y1="40" x2="2" y2="40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <line x1="112" y1="40" x2="118" y2="40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                }
-
-                <!-- UȘI PORTIERE -->
-                @if (slug === 'usi-portiere') {
-                  <rect x="16" y="10" width="88" height="60" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <path d="M24 24 Q60 16 96 24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <rect x="24" y="26" width="72" height="28" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="90" cy="56" r="5" fill="none" stroke="currentColor" stroke-width="2.5"/>
-                  <line x1="90" y1="51" x2="90" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                }
-
-                <!-- FARURI FAȚĂ -->
-                @if (slug === 'faruri-fata') {
-                  <path d="M12 14 L82 10 Q98 12 100 30 L100 50 Q98 68 82 70 L12 66 Q6 58 6 40 Q6 22 12 14 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <ellipse cx="48" cy="40" rx="20" ry="16" fill="none" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="48" cy="40" r="7" fill="currentColor" opacity="0.15"/>
-                  <line x1="84" y1="26" x2="106" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-                  <line x1="86" y1="40" x2="110" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-                  <line x1="84" y1="54" x2="106" y2="60" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-                }
-
-                <!-- STOPURI SPATE -->
-                @if (slug === 'stopuri-spate') {
-                  <path d="M108 14 L38 10 Q22 12 20 30 L20 50 Q22 68 38 70 L108 66 Q114 58 114 40 Q114 22 108 14 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <rect x="28" y="22" width="44" height="36" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
-                  <rect x="32" y="26" width="16" height="28" rx="3" fill="currentColor" opacity="0.15"/>
-                  <rect x="52" y="26" width="16" height="28" rx="3" fill="currentColor" opacity="0.08"/>
-                  <rect x="78" y="26" width="20" height="14" rx="3" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
-                  <rect x="78" y="44" width="20" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                }
-
-                <!-- CAPOTĂ MOTOR -->
-                @if (slug === 'capota-motor') {
-                  <path d="M10 58 Q12 28 28 16 L92 16 Q108 28 110 58 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <line x1="10" y1="58" x2="110" y2="58" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M32 18 Q60 8 88 18" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <line x1="60" y1="16" x2="60" y2="58" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.3"/>
-                }
-
-                <!-- PORTBAGAJ HAYON -->
-                @if (slug === 'portbagaj-hayon') {
-                  <path d="M14 62 Q12 42 22 24 L46 14 L74 14 L98 24 Q108 42 106 62 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <line x1="14" y1="62" x2="106" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M26 26 L94 26 Q104 38 102 52 L18 52 Q16 38 26 26 Z" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <circle cx="60" cy="64" r="4.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
-                }
-
-                <!-- ARIPI -->
-                @if (slug === 'aripi') {
-                  <path d="M12 70 L12 28 Q14 10 38 8 L82 8 Q96 10 98 24 L98 42 Q98 58 84 64 L28 70 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <path d="M12 70 Q22 76 28 70" fill="none" stroke="currentColor" stroke-width="2.5"/>
-                  <circle cx="28" cy="64" r="11" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <path d="M42 8 Q46 30 40 54" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
-                }
-
-                <!-- OGLINZI -->
-                @if (slug === 'oglinzi') {
-                  <path d="M14 42 Q12 16 28 12 L66 12 Q80 14 80 34 Q80 52 66 60 L38 68 Q20 64 14 42 Z" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <ellipse cx="46" cy="36" rx="18" ry="13" fill="none" stroke="currentColor" stroke-width="2" opacity="0.45"/>
-                  <line x1="14" y1="42" x2="4" y2="48" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <line x1="8" y1="40" x2="2" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
-                }
-
-                <!-- MOTOR & TRANSMISIE -->
-                @if (slug === 'motor-transmisie') {
-                  <rect x="22" y="22" width="76" height="36" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <rect x="32" y="30" width="56" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <line x1="38" y1="22" x2="38" y2="10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="56" y1="22" x2="56" y2="10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="74" y1="22" x2="74" y2="10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="98" y1="32" x2="110" y2="32" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="98" y1="48" x2="110" y2="48" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="10" y1="40" x2="22" y2="40" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="38" y1="58" x2="38" y2="70" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                  <line x1="74" y1="58" x2="74" y2="70" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                }
-
-                <!-- SUSPENSIE & DIRECȚIE -->
-                @if (slug === 'suspensie-directie') {
-                  <circle cx="26" cy="58" r="17" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <circle cx="26" cy="58" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="94" cy="58" r="17" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <circle cx="94" cy="58" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
-                  <path d="M26 41 L26 18 Q26 10 44 10 L76 10 Q94 10 94 18 L94 41" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M36 36 Q36 24 44 22 L76 22 Q84 24 84 36" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                }
-
-                <!-- INTERIOR & TAPIȚERIE -->
-                @if (slug === 'interior') {
-                  <rect x="8" y="30" width="46" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <path d="M12 42 Q31 34 52 42" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <rect x="66" y="30" width="46" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="3"/>
-                  <path d="M70 42 Q89 34 110 42" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                  <path d="M8 30 Q28 14 60 12 Q92 14 112 30" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.55"/>
-                  <rect x="52" y="40" width="16" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="60" cy="30" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/>
-                }
-
-              </svg>
-            </div>
-            <span class="stare-badge" [ngClass]="'stare-' + piesa.stare.toLowerCase().replace('ă','a').replace('ă','a')">
-              {{ piesa.stare }}
-            </span>
-          </div>
-
-          <!-- CARD BODY -->
-          <div class="piesa-body">
-            <p class="piesa-model-tag">{{ piesa.model }} · {{ piesa.an }}</p>
-            <h3 class="piesa-titlu">{{ piesa.titlu }}</h3>
-            <p class="piesa-culoare">
-              <span class="dot"></span>
-              {{ piesa.culoare }}
-            </p>
-          </div>
-
-          <!-- CARD FOOTER -->
-          <div class="piesa-footer">
-            <div class="piesa-pret-wrap">
-              <span class="piesa-pret">{{ piesa.pret | currency:'RON':'symbol':'1.0-0' }}</span>
-              <span class="piesa-cod">{{ piesa.cod }}</span>
-            </div>
-            <a class="btn-detalii" [routerLink]="['/marci', brand, slug, piesa.id]">Detalii</a>
-          </div>
-
-        </div>
-      }
+    <div class="piese-toolbar">
+      <h2 class="piese-titlu-sectiune">Piese disponibile</h2>
+      <button class="filtru-toggle" [class.active]="doarDisponibile" (click)="toggleDisponibile()">
+        <span class="check-box">@if (doarDisponibile) { ✓ }</span>
+        Doar piesele disponibile
+      </button>
     </div>
+
+    @for (grupa of grupeAfisate; track grupa.nume) {
+      <div class="grupa-block">
+        <div class="grupa-head">
+          <h3 class="grupa-nume">{{ grupa.nume }}</h3>
+          <span class="grupa-count">{{ grupa.piese.length }} piese</span>
+        </div>
+
+        <ul class="piesa-list">
+          @for (p of grupa.piese; track p.cod) {
+            <li class="piesa-row" [class.indisp]="!p.disponibil">
+
+              <span class="piesa-marker" [class.on]="p.disponibil">
+                @if (p.disponibil) { ✓ } @else { ✕ }
+              </span>
+
+              <div class="piesa-nume-wrap">
+                <span class="piesa-nume">{{ p.nume }}</span>
+                <span class="piesa-cod">{{ p.cod }}</span>
+              </div>
+
+              @if (p.disponibil) {
+                <span class="stare-badge" [class]="stareClass(p.stare)">{{ p.stare }}</span>
+                <span class="piesa-pret">{{ p.pret | currency:'RON':'symbol':'1.0-0' }}</span>
+                <a routerLink="/contact" class="btn-cere">Cere</a>
+              } @else {
+                <span class="indisp-text">Indisponibilă</span>
+              }
+
+            </li>
+          }
+        </ul>
+      </div>
+    }
 
   </div>
 </section>
@@ -194,9 +117,10 @@
   <div class="container">
     <div class="cta-content">
       <div class="cta-text">
-        <h2 class="cta-title">Nu găsești exact ce cauți?</h2>
+        <h2 class="cta-title">Vrei mai multe piese din această mașină?</h2>
         <p class="cta-subtitle">
-          Spune-ne modelul și anul și îți confirmăm stocul în câteva ore.
+          Trimite-ne lista de piese de care ai nevoie de pe {{ masina.brand }} {{ masina.model }} ·
+          cod parc {{ masina.cod }}. Confirmăm starea și prețul în câteva ore.
         </p>
       </div>
       <div class="cta-buttons">
@@ -205,3 +129,5 @@
     </div>
   </div>
 </section>
+
+}

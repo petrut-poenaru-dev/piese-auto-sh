@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { masiniVanzare, masiniDezmembrat } from '../shared/masini.data';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -82,6 +84,10 @@ export class HomeComponent {
   ];
 
   years = Array.from({ length: 15 }, (_, i) => 2024 - i);
+
+  // ── Mașini (date partajate, folosite și pe pagina de detaliu) ──
+  masiniVanzare = masiniVanzare;
+  masiniDezmembrat = masiniDezmembrat;
 
   activeFaq: number | null = null;
 

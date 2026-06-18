@@ -1,0 +1,200 @@
+@if (masina) {
+
+<!-- ═══════════════════════════════════════════════
+     BREADCRUMB
+═══════════════════════════════════════════════ -->
+<div class="breadcrumb-bar">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Acasă</a>
+      <span class="sep">›</span>
+      <span class="current">{{ masina.name }}</span>
+    </nav>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     MAIN LAYOUT
+═══════════════════════════════════════════════ -->
+<section class="car-section">
+  <div class="container">
+    <div class="car-layout">
+
+      <!-- ── GALLERY COLUMN ── -->
+      <div class="gallery-col">
+        <div class="main-img" [style.background]="masina.bg">
+          <svg class="car-icon" width="160" height="160" viewBox="0 0 120 120" fill="none">
+            <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
+              stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 74 L106 74 Q108 74 108 78 L108 84 L12 84 L12 78 Q12 74 14 74 Z"
+              stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linejoin="round"/>
+            <circle cx="36" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <circle cx="84" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+            <path d="M40 50 L56 50 L56 64 L33 64 Z M64 50 L78 50 Q83 51 86 56 L88 64 L64 64 Z"
+              stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span class="view-label">{{ galleryViews[activeThumb] }}</span>
+        </div>
+
+        <div class="thumbs-row">
+          @for (view of galleryViews; track $index) {
+            <button
+              class="thumb"
+              type="button"
+              [class.active]="activeThumb === $index"
+              [style.background]="masina.bg"
+              (click)="activeThumb = $index"
+            >
+              <span class="thumb-label">{{ view }}</span>
+            </button>
+          }
+        </div>
+      </div>
+
+
+      <!-- ── INFO COLUMN ── -->
+      <div class="info-col">
+
+        <div class="info-header">
+          <div class="badges-row">
+            <span class="badge-tip">{{ tipLabel }}</span>
+            @if (masina.stare) {
+              <span class="badge-stare">{{ masina.stare }}</span>
+            }
+            @if (masina.disponibilitate) {
+              <span class="badge-stare">{{ masina.disponibilitate }}</span>
+            }
+          </div>
+          <h1 class="car-titlu">{{ masina.name }}</h1>
+          <p class="car-sub">{{ masina.an }} · {{ masina.km }} · {{ masina.combustibil }}</p>
+        </div>
+
+        <!-- Price (doar pentru vânzare) -->
+        @if (masina.pret) {
+          <div class="price-block">
+            <span class="price">{{ masina.pret }} €</span>
+            <span class="price-vat">preț negociabil</span>
+          </div>
+        }
+
+        <!-- Spec table -->
+        <div class="details-table">
+          <div class="detail-row">
+            <span class="detail-label">An fabricație</span>
+            <span class="detail-val">{{ masina.an }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Kilometraj</span>
+            <span class="detail-val">{{ masina.km }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Combustibil</span>
+            <span class="detail-val">{{ masina.combustibil }}</span>
+          </div>
+          @if (masina.cutie) {
+            <div class="detail-row">
+              <span class="detail-label">Cutie de viteze</span>
+              <span class="detail-val">{{ masina.cutie }}</span>
+            </div>
+          }
+          @if (masina.putere) {
+            <div class="detail-row">
+              <span class="detail-label">Putere</span>
+              <span class="detail-val">{{ masina.putere }}</span>
+            </div>
+          }
+          @if (masina.motor) {
+            <div class="detail-row">
+              <span class="detail-label">Motor</span>
+              <span class="detail-val">{{ masina.motor }}</span>
+            </div>
+          }
+          @if (masina.stare) {
+            <div class="detail-row">
+              <span class="detail-label">Stare</span>
+              <span class="detail-val">{{ masina.stare }}</span>
+            </div>
+          }
+          @if (masina.cod) {
+            <div class="detail-row">
+              <span class="detail-label">Cod parc</span>
+              <span class="detail-val mono">{{ masina.cod }}</span>
+            </div>
+          }
+        </div>
+
+        <!-- Descriere -->
+        <div class="descriere-block">
+          <h3 class="block-title">Descriere</h3>
+          <p class="descriere-text">{{ masina.descriere }}</p>
+        </div>
+
+        <!-- Dotări -->
+        <div class="dotari-block">
+          <h3 class="block-title">Dotări &amp; detalii</h3>
+          <div class="dotari-grid">
+            @for (d of masina.dotari; track d) {
+              <span class="dotare-chip">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {{ d }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-actions">
+          <a routerLink="/contact" class="btn-primary">
+            @if (masina.tip === 'vanzare') { Programează vizionare }
+            @else { Solicită piesă }
+          </a>
+          <a routerLink="/contact" class="btn-secondary">Contactează-ne</a>
+        </div>
+
+        <p class="note">
+          Garanție la cerere · Verificare istoric · Posibilitate transport
+        </p>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     MAȘINI SIMILARE
+═══════════════════════════════════════════════ -->
+@if (similare.length) {
+  <section class="similare-section">
+    <div class="container">
+      <h2 class="similare-title">Alte mașini disponibile</h2>
+
+      <div class="similare-grid">
+        @for (s of similare; track s.id) {
+          <a class="sim-card" [routerLink]="['/masina', s.id]">
+            <div class="sim-img" [style.background]="s.bg">
+              <span class="sim-an">{{ s.an }}</span>
+            </div>
+            <div class="sim-body">
+              <p class="sim-titlu">{{ s.name }}</p>
+              <p class="sim-specs">{{ s.km }} · {{ s.combustibil }}</p>
+            </div>
+            <div class="sim-footer">
+              @if (s.pret) {
+                <span class="sim-pret">{{ s.pret }} €</span>
+              } @else {
+                <span class="sim-pret">{{ s.disponibilitate }}</span>
+              }
+              <span class="sim-link">Vezi →</span>
+            </div>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+}
+
+}

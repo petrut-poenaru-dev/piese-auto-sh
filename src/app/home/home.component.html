@@ -247,6 +247,113 @@
 
 
 <!-- ═══════════════════════════════════════════════
+     MAȘINI DE VÂNZARE
+═══════════════════════════════════════════════ -->
+<section class="cars-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-eyebrow">STOC AUTOTURISME</span>
+        <h2 class="section-title">Mașini de Vânzare</h2>
+      </div>
+      <a href="#" class="see-all">Vezi toate &rarr;</a>
+    </div>
+
+    <div class="cars-grid">
+      @for (car of masiniVanzare; track car.name) {
+        <article class="car-card">
+          <div class="car-image" [style.background]="car.bg">
+            <svg class="car-icon" width="84" height="84" viewBox="0 0 120 120" fill="none">
+              <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
+                stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 74 L106 74 Q108 74 108 78 L108 84 L12 84 L12 78 Q12 74 14 74 Z"
+                stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="36" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <circle cx="84" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <path d="M40 50 L56 50 L56 64 L33 64 Z M64 50 L78 50 Q83 51 86 56 L88 64 L64 64 Z"
+                stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <span class="car-year-float">{{ car.an }}</span>
+            <span class="car-status-float">{{ car.stare }}</span>
+          </div>
+
+          <div class="car-body">
+            <h3 class="car-name">{{ car.name }}</h3>
+            <div class="car-specs">
+              <span class="spec"><strong>{{ car.km }}</strong></span>
+              <span class="spec">{{ car.combustibil }}</span>
+              <span class="spec">{{ car.cutie }}</span>
+              <span class="spec">{{ car.putere }}</span>
+            </div>
+            <div class="car-footer">
+              <span class="car-price">{{ car.pret }} €</span>
+              <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]">Informații</a>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     MAȘINI PENTRU DEZMEMBRAT
+═══════════════════════════════════════════════ -->
+<section class="dismantle-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-eyebrow">PARC DEZMEMBRĂRI</span>
+        <h2 class="section-title">Mașini pentru Dezmembrat</h2>
+      </div>
+      <a href="#" class="see-all">Vezi toate &rarr;</a>
+    </div>
+
+    <p class="dismantle-intro">
+      Caută piese de pe mașinile aflate în dezmembrare. Solicită orice
+      componentă disponibilă — îți confirmăm stocul și starea pe loc.
+    </p>
+
+    <div class="cars-grid">
+      @for (car of masiniDezmembrat; track car.cod) {
+        <article class="car-card">
+          <div class="car-image" [style.background]="car.bg">
+            <svg class="car-icon" width="84" height="84" viewBox="0 0 120 120" fill="none">
+              <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
+                stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 74 L106 74 Q108 74 108 78 L108 84 L12 84 L12 78 Q12 74 14 74 Z"
+                stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="36" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <circle cx="84" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+              <path d="M40 50 L56 50 L56 64 L33 64 Z M64 50 L78 50 Q83 51 86 56 L88 64 L64 64 Z"
+                stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <span class="car-year-float">{{ car.an }}</span>
+            <span class="dismantle-tag-float">{{ car.disponibilitate }}</span>
+          </div>
+
+          <div class="car-body">
+            <h3 class="car-name">{{ car.name }}</h3>
+            <div class="car-specs">
+              <span class="spec"><strong>{{ car.km }}</strong></span>
+              <span class="spec">{{ car.combustibil }}</span>
+              <span class="spec">{{ car.motor }}</span>
+            </div>
+            <p class="car-code">COD PARC: {{ car.cod }}</p>
+            <div class="car-footer">
+              <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]">Informații</a>
+              <button class="btn-secondary dismantle-btn">Solicită piesă</button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
      FAQ
 ═══════════════════════════════════════════════ -->
 <section class="faq-section">

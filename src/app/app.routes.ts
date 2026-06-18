@@ -5,10 +5,12 @@ import { MarciComponent } from './marci/marci.component';
 import { PieseMarcaComponent } from './piese-marca/piese-marca.component';
 import { PieseCategorieComponent } from './piese-categorie/piese-categorie.component';
 import { PiesaDetaliuComponent } from './piesa-detaliu/piesa-detaliu.component';
+import { MasinaDetaliuComponent } from './masina-detaliu/masina-detaliu.component';
 
 export const routes: Routes = [
   { path: '',                             component: HomeComponent },
   { path: 'contact',                      component: ContactComponent },
+  { path: 'masina/:id',                   component: MasinaDetaliuComponent },
   { path: 'marci',                        component: MarciComponent },
   { path: 'marci/:brand',                 component: PieseMarcaComponent },
   { path: 'marci/:brand/:slug',           component: PieseCategorieComponent },

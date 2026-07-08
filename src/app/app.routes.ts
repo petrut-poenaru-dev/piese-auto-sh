@@ -5,11 +5,13 @@ import { MarciComponent } from './marci/marci.component';
 import { PieseMarcaComponent } from './piese-marca/piese-marca.component';
 import { PieseCategorieComponent } from './piese-categorie/piese-categorie.component';
 import { MasinaDetaliuComponent } from './masina-detaliu/masina-detaliu.component';
+import { VinSearchComponent } from './vin-search/vin-search.component';
 
 export const routes: Routes = [
   { path: '',                       component: HomeComponent },
   { path: 'contact',                component: ContactComponent },
   { path: 'masina/:id',             component: MasinaDetaliuComponent },
+  { path: 'cauta-vin',              component: VinSearchComponent },
 
   // Flux căutare: Marcă → Mașină de dezmembrat → Piese disponibile
   { path: 'marci',                  component: MarciComponent },          // toate mărcile

@@ -9,23 +9,28 @@
         <circle cx="12" cy="12" r="3"/>
         <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>
       </svg>
-      <span class="logo-text">PieseAuto<strong>Aga</strong></span>
+      <span class="logo-text">PieseAuto<strong>Sh</strong></span>
     </a>
 
     <ul class="nav-links" [class.open]="mobileMenuOpen">
       <li><a routerLink="/" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact:true}">Piese Auto</a></li>
       <li><a routerLink="/marci" routerLinkActive="nav-active">Mărci</a></li>
-      <li><a href="#">Promoții</a></li>
+      <li><a routerLink="/cauta-vin" routerLinkActive="nav-active" class="nav-vin-link">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Caută VIN
+      </a></li>
       <li><a href="#">Blog</a></li>
       <li><a routerLink="/contact" routerLinkActive="nav-active">Contact</a></li>
     </ul>
 
     <div class="nav-actions">
-      <button class="nav-icon-btn" aria-label="Cauta">
+      <a class="nav-icon-btn" routerLink="/cauta-vin" aria-label="Cauta dupa VIN">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
-      </button>
+      </a>
       <button class="nav-icon-btn" aria-label="Cos cumparaturi">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/>
@@ -57,7 +62,7 @@
     <div class="footer-grid">
 
       <div class="footer-brand">
-        <span class="footer-logo">PieseAuto<strong>Aga</strong></span>
+        <span class="footer-logo">PieseAuto<strong>Sh</strong></span>
         <p>Furnizorul tău de încredere pentru piese auto originale din dezmembrări premium, cu garanție și livrare rapidă.</p>
         <div class="social-links">
           <a href="#" aria-label="Facebook">
@@ -112,7 +117,7 @@
           </li>
           <li>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            contact&#64;pieseautoaga.ro
+            contact&#64;pieseautosh.ro
           </li>
           <li>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -125,7 +130,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>© 2026 PieseAutoAga. Toate drepturile rezervate.</p>
+      <p>© 2026 PieseAutoSh. Toate drepturile rezervate.</p>
       <div class="footer-legal">
         <a href="#">Termeni și condiții</a>
         <a href="#">Confidențialitate</a>

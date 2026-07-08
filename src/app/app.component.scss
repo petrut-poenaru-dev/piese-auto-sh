@@ -12,21 +12,49 @@
   position: fixed;
   inset: 0 0 auto;
   z-index: 200;
-  padding: 1.25rem 0;
-  transition: background 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
+  padding: 1rem 0;
+  // Dark frosted glass — mereu vizibil indiferent de fundalul paginii
+  background: rgba(18, 23, 30, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
-  &:not(.scrolled) {
-    .logo-text { color: #fff; }
-    .nav-links a { color: rgba(255,255,255,0.8); &:hover { color: #fff; } }
-    .nav-icon-btn { color: rgba(255,255,255,0.8); &:hover { color: #fff; background: rgba(255,255,255,0.08); } }
+  // Text alb implicit (pe fundal întunecat)
+  .logo-text      { color: #fff; }
+  .nav-links a    { color: rgba(255, 255, 255, 0.75); &:hover { color: #fff; } }
+  .nav-links a.nav-active { color: #34d399; font-weight: 600; }
+  .nav-icon-btn   { color: rgba(255, 255, 255, 0.75); &:hover { color: #fff; background: rgba(255,255,255,0.08); } }
+  .hamburger span { background: rgba(255, 255, 255, 0.9); }
+
+  .nav-vin-link {
+    background: rgba(52, 211, 153, 0.14) !important;
+    color: #34d399 !important;
+    &:hover { background: rgba(52, 211, 153, 0.24) !important; }
+    &.nav-active { background: rgba(52, 211, 153, 0.22) !important; }
   }
 
+  // La scroll → fundal alb cu text închis
   &.scrolled {
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.93);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+    border-bottom-color: rgba(172, 179, 184, 0.18);
     padding: 0.75rem 0;
-    box-shadow: 0 4px 32px rgba(45, 51, 56, 0.06);
+    box-shadow: 0 4px 32px rgba(45, 51, 56, 0.07);
+
+    .logo-text      { color: var(--on-surface); }
+    .nav-links a    { color: var(--primary); &:hover { color: var(--on-surface); } }
+    .nav-links a.nav-active { color: var(--tertiary); }
+    .nav-icon-btn   { color: var(--primary); &:hover { color: var(--on-surface); background: var(--surface-low); } }
+    .hamburger span { background: var(--on-surface); }
+
+    .nav-vin-link {
+      background: rgba(0, 108, 91, 0.10) !important;
+      color: var(--tertiary) !important;
+      &:hover { background: rgba(0, 108, 91, 0.18) !important; }
+      &.nav-active { background: rgba(0, 108, 91, 0.16) !important; }
+    }
   }
 }
 
@@ -75,10 +103,19 @@
     &:hover { color: var(--on-surface); }
   }
 
-  // Active route link
-  a.nav-active {
-    color: var(--tertiary);
-    font-weight: 600;
+  // Active route — culoarea vine din .navbar context
+  a.nav-active { font-weight: 600; }
+
+  // VIN chip — layout și dimensiuni (culorile vin din .navbar context)
+  .nav-vin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-weight: 600 !important;
+    font-size: 0.8125rem !important;
+    transition: background 0.2s;
   }
 }
 

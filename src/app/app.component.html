@@ -1,6 +1,7 @@
 <!-- ═══════════════════════════════════════════════
-     NAVBAR
+     NAVBAR (ascuns pe rutele de admin — fiecare pagină de admin are propriul header)
 ═══════════════════════════════════════════════ -->
+@if (!isAdminRoute()) {
 <nav class="navbar" [class.scrolled]="navScrolled">
   <div class="nav-container">
 
@@ -46,6 +47,7 @@
 
   </div>
 </nav>
+}
 
 
 <!-- ═══════════════════════════════════════════════

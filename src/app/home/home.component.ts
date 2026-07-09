@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { masiniVanzare, masiniDezmembrat } from '../shared/masini.data';
+import { MasiniService } from '../shared/masini.service';
+import { Masina } from '../shared/models';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,14 @@ import { masiniVanzare, masiniDezmembrat } from '../shared/masini.data';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private masiniService: MasiniService) {}
+
+  ngOnInit() {
+    this.masiniService.getAll('vanzare').subscribe(m => (this.masiniVanzare = m));
+    this.masiniService.getAll('dezmembrat').subscribe(m => (this.masiniDezmembrat = m));
+  }
 
   brands = ['Audi', 'BMW', 'Mercedes', 'Volkswagen', 'Toyota', 'Ford', 'Renault', 'Opel'];
 
@@ -96,9 +102,9 @@ export class HomeComponent {
 
   years = Array.from({ length: 15 }, (_, i) => 2024 - i);
 
-  // ── Mașini (date partajate, folosite și pe pagina de detaliu) ──
-  masiniVanzare = masiniVanzare;
-  masiniDezmembrat = masiniDezmembrat;
+  // ── Mașini (încărcate din API, folosite și pe pagina de detaliu) ──
+  masiniVanzare: Masina[] = [];
+  masiniDezmembrat: Masina[] = [];
 
   activeFaq: number | null = null;
 

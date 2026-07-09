@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { decodeVin, DEMO_VINS, VinInfo } from '../shared/vin-decoder';
-import { MASINI_DEZMEMBRARE, MasinaDezmembrare } from '../shared/dezmembrari.data';
+import { DezmembrariService } from '../shared/dezmembrari.service';
+import { MasinaDezmembrare } from '../shared/models';
 
 type SearchState = 'idle' | 'found' | 'no-brand' | 'no-stock' | 'invalid';
 
@@ -13,7 +14,7 @@ type SearchState = 'idle' | 'found' | 'no-brand' | 'no-stock' | 'invalid';
   templateUrl: './vin-search.component.html',
   styleUrl: './vin-search.component.scss',
 })
-export class VinSearchComponent {
+export class VinSearchComponent implements OnInit {
   vinInput = '';
   state: SearchState = 'idle';
   decoded: VinInfo | null = null;
@@ -21,6 +22,14 @@ export class VinSearchComponent {
   exactYearMatch = false;
 
   readonly demoVins = DEMO_VINS;
+
+  private toateMasinile: MasinaDezmembrare[] = [];
+
+  constructor(private dezmembrariService: DezmembrariService) {}
+
+  ngOnInit() {
+    this.dezmembrariService.getAll().subscribe(m => (this.toateMasinile = m));
+  }
 
   cauta() {
     const raw = this.vinInput.trim();
@@ -41,7 +50,7 @@ export class VinSearchComponent {
 
     // Încearcă mai întâi potrivire exactă brand + an
     const byYear = info.an
-      ? MASINI_DEZMEMBRARE.filter(m => m.brandKey === info.brandKey && m.an === info.an)
+      ? this.toateMasinile.filter(m => m.brandKey === info.brandKey && m.an === info.an)
       : [];
 
     if (byYear.length > 0) {
@@ -52,7 +61,7 @@ export class VinSearchComponent {
     }
 
     // Fallback: orice mașină din brandul respectiv
-    const byBrand = MASINI_DEZMEMBRARE.filter(m => m.brandKey === info.brandKey);
+    const byBrand = this.toateMasinile.filter(m => m.brandKey === info.brandKey);
 
     if (byBrand.length === 0) {
       this.state = 'no-stock';

@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, HostListener, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,17 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
 
+  private router = inject(Router);
+
   navScrolled = false;
   mobileMenuOpen = false;
+  isAdminRoute = signal(this.router.url.startsWith('/admin'));
+
+  constructor() {
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(e => this.isAdminRoute.set(e.urlAfterRedirects.startsWith('/admin')));
+  }
 
   @HostListener('window:scroll')
   onScroll(): void {

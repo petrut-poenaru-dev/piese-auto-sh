@@ -1,0 +1,237 @@
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <div>
+      <span class="section-eyebrow">PANOU ADMIN</span>
+      <h1 class="admin-title">{{ mode === 'create' ? 'Adaugă mașină' : form.name }}</h1>
+    </div>
+    <a routerLink="/admin" class="btn-secondary">&larr; Înapoi la listă</a>
+  </div>
+</header>
+
+<main class="admin-main">
+
+  @if (seIncarca) {
+    <p class="admin-status">Se încarcă…</p>
+  } @else {
+
+    @if (eroare) {
+      <p class="form-error-banner">{{ eroare }}</p>
+    }
+
+    <form class="car-form" (ngSubmit)="submit()">
+
+      <section class="form-card">
+        <h2 class="form-card-title">Tip mașină</h2>
+        <div class="tip-toggle">
+          <label class="tip-option" [class.active]="form.tip === 'vanzare'">
+            <input type="radio" name="tip" value="vanzare" [(ngModel)]="form.tip" [disabled]="mode === 'edit'" />
+            De vânzare
+          </label>
+          <label class="tip-option" [class.active]="form.tip === 'dezmembrat'">
+            <input type="radio" name="tip" value="dezmembrat" [(ngModel)]="form.tip" [disabled]="mode === 'edit'" />
+            De dezmembrat
+          </label>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <h2 class="form-card-title">Detalii generale</h2>
+        <div class="form-grid">
+          <label class="field">
+            <span class="field-label">Nume complet</span>
+            <input name="name" [(ngModel)]="form.name" placeholder="ex. BMW Seria 5 F10 520d" required />
+          </label>
+          <label class="field">
+            <span class="field-label">An fabricație</span>
+            <input type="number" name="an" [(ngModel)]="form.an" required />
+          </label>
+          <label class="field">
+            <span class="field-label">Kilometraj</span>
+            <input name="km" [(ngModel)]="form.km" placeholder="ex. 186.000 km" required />
+          </label>
+          <label class="field">
+            <span class="field-label">Combustibil</span>
+            <input name="combustibil" [(ngModel)]="form.combustibil" placeholder="ex. Diesel" required />
+          </label>
+        </div>
+
+        <div class="field">
+          <span class="field-label">Culoare card (poză)</span>
+          <div class="swatches">
+            @for (g of gradients; track g) {
+              <button
+                type="button"
+                class="swatch"
+                [class.active]="form.bg === g"
+                [style.background]="g"
+                (click)="form.bg = g"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Descriere</span>
+          <textarea name="descriere" rows="3" [(ngModel)]="form.descriere" required></textarea>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Dotări (separate prin virgulă)</span>
+          <input name="dotariText" [(ngModel)]="form.dotariText" placeholder="Climatronic, Navigație, Jante aliaj" />
+        </label>
+      </section>
+
+      @if (form.tip === 'vanzare') {
+        <section class="form-card">
+          <h2 class="form-card-title">Detalii vânzare</h2>
+          <div class="form-grid">
+            <label class="field">
+              <span class="field-label">Cutie de viteze</span>
+              <input name="cutie" [(ngModel)]="form.cutie" placeholder="Automată / Manuală" />
+            </label>
+            <label class="field">
+              <span class="field-label">Putere</span>
+              <input name="putere" [(ngModel)]="form.putere" placeholder="ex. 184 CP" />
+            </label>
+            <label class="field">
+              <span class="field-label">Preț (€)</span>
+              <input type="number" name="pret" [(ngModel)]="form.pret" required />
+            </label>
+            <label class="field">
+              <span class="field-label">Stare</span>
+              <input name="stare" [(ngModel)]="form.stare" placeholder="Înmatriculată" />
+            </label>
+          </div>
+        </section>
+      }
+
+      @if (form.tip === 'dezmembrat') {
+        <section class="form-card">
+          <h2 class="form-card-title">Detalii dezmembrare</h2>
+          <div class="form-grid">
+            <label class="field">
+              <span class="field-label">Marcă</span>
+              <input name="brand" [(ngModel)]="form.brand" (ngModelChange)="onBrandInput()" placeholder="ex. BMW" required />
+            </label>
+            <label class="field">
+              <span class="field-label">Brand key (URL)</span>
+              <input name="brandKey" [(ngModel)]="form.brandKey" (ngModelChange)="onBrandKeyInput()" placeholder="ex. bmw" required />
+            </label>
+            <label class="field">
+              <span class="field-label">Model</span>
+              <input name="model" [(ngModel)]="form.model" placeholder="ex. Seria 5 F10 520d" required />
+            </label>
+            <label class="field">
+              <span class="field-label">Motor</span>
+              <input name="motor" [(ngModel)]="form.motor" placeholder="ex. 2.0d 184 CP" />
+            </label>
+            <label class="field">
+              <span class="field-label">Cutie de viteze</span>
+              <input name="cutieD" [(ngModel)]="form.cutie" placeholder="Automată / Manuală" />
+            </label>
+            <label class="field">
+              <span class="field-label">Caroserie</span>
+              <input name="caroserie" [(ngModel)]="form.caroserie" placeholder="Berlină / Break / Hatchback" />
+            </label>
+            <label class="field">
+              <span class="field-label">Culoare</span>
+              <input name="culoare" [(ngModel)]="form.culoare" placeholder="ex. Negru Metalizat" />
+            </label>
+            <label class="field">
+              <span class="field-label">Cod parc</span>
+              <input name="cod" [(ngModel)]="form.cod" placeholder="ex. DZ-BM-1042" />
+            </label>
+            <label class="field">
+              <span class="field-label">Status dezmembrare</span>
+              <select name="disponibilitate" [(ngModel)]="form.disponibilitate">
+                <option value="Piese pe stoc">Piese pe stoc</option>
+                <option value="Dezmembrare activă">Dezmembrare activă</option>
+              </select>
+            </label>
+          </div>
+        </section>
+      }
+
+      @if (eroare) {
+        <p class="form-error">{{ eroare }}</p>
+      }
+
+      <button type="submit" class="btn-primary" [disabled]="seSalveaza">
+        {{ seSalveaza ? 'Se salvează…' : (mode === 'create' ? 'Creează mașina' : 'Salvează modificările') }}
+      </button>
+    </form>
+
+    <!-- ── PIESE (doar mașini de dezmembrat, după creare) ── -->
+    @if (mode === 'edit' && esteDezmembrat) {
+      <section class="form-card parts-card">
+        <h2 class="form-card-title">Piese disponibile ({{ parts.length }})</h2>
+        <p class="form-card-subtitle">
+          Piesele adăugate aici apar automat pe site, în pagina mașinii din fluxul Marcă → Mașină → Piese.
+        </p>
+
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Grupă</th>
+                <th>Nume</th>
+                <th>Stare</th>
+                <th>Preț (lei)</th>
+                <th>Cod</th>
+                <th>Disponibilă</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (part of parts; track part.id) {
+                <tr>
+                  <td><input class="cell-input" [(ngModel)]="part.grupa" name="grupa-{{part.id}}" (change)="actualizeazaPiesa(part)" /></td>
+                  <td><input class="cell-input" [(ngModel)]="part.nume" name="nume-{{part.id}}" (change)="actualizeazaPiesa(part)" /></td>
+                  <td>
+                    <select class="cell-input" [(ngModel)]="part.stare" name="stare-{{part.id}}" (change)="actualizeazaPiesa(part)">
+                      <option value="Excelentă">Excelentă</option>
+                      <option value="Bună">Bună</option>
+                      <option value="Acceptabilă">Acceptabilă</option>
+                    </select>
+                  </td>
+                  <td><input class="cell-input cell-input-num" type="number" [(ngModel)]="part.pret" name="pret-{{part.id}}" (change)="actualizeazaPiesa(part)" /></td>
+                  <td><input class="cell-input" [(ngModel)]="part.cod" name="cod-{{part.id}}" (change)="actualizeazaPiesa(part)" /></td>
+                  <td class="cell-center">
+                    <input type="checkbox" [(ngModel)]="part.disponibil" name="disp-{{part.id}}" (change)="actualizeazaPiesa(part)" />
+                  </td>
+                  <td>
+                    <button type="button" class="link-action link-danger" (click)="stergePiesa(part)">Șterge</button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td colspan="7" class="cell-empty">Nicio piesă adăugată încă.</td></tr>
+              }
+
+              <!-- rând nou -->
+              <tr class="row-new">
+                <td><input class="cell-input" [(ngModel)]="newPart.grupa" name="new-grupa" placeholder="ex. Motor & Transmisie" /></td>
+                <td><input class="cell-input" [(ngModel)]="newPart.nume" name="new-nume" placeholder="ex. Turbosuflantă" /></td>
+                <td>
+                  <select class="cell-input" [(ngModel)]="newPart.stare" name="new-stare">
+                    <option value="Excelentă">Excelentă</option>
+                    <option value="Bună">Bună</option>
+                    <option value="Acceptabilă">Acceptabilă</option>
+                  </select>
+                </td>
+                <td><input class="cell-input cell-input-num" type="number" [(ngModel)]="newPart.pret" name="new-pret" /></td>
+                <td><input class="cell-input" [(ngModel)]="newPart.cod" name="new-cod" placeholder="ex. TRB-BM2014-004" /></td>
+                <td class="cell-center">
+                  <input type="checkbox" [(ngModel)]="newPart.disponibil" name="new-disp" />
+                </td>
+                <td>
+                  <button type="button" class="btn-primary btn-sm" (click)="adaugaPiesa()">+ Adaugă</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+
+  }
+</main>

@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
-import {
-  MasinaDezmembrare,
-  GrupaPiese,
-  gasesteMasinaDezmembrare,
-} from '../shared/dezmembrari.data';
+import { DezmembrariService } from '../shared/dezmembrari.service';
+import { MasinaDezmembrare, GrupaPiese } from '../shared/models';
 
 // Pasul 3 din căutare: piesele disponibile dintr-o mașină concretă (checklist).
 @Component({
@@ -19,17 +16,21 @@ export class PieseCategorieComponent implements OnInit {
   masina?: MasinaDezmembrare;
   doarDisponibile = false;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dezmembrariService: DezmembrariService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.brand = params.get('brand') ?? '';
       const id = params.get('masina') ?? '';
-      this.masina = gasesteMasinaDezmembrare(id);
 
-      if (!this.masina) {
-        this.router.navigate(['/marci', this.brand]);
-      }
+      this.dezmembrariService.getById(id).subscribe({
+        next: masina => (this.masina = masina),
+        error: () => this.router.navigate(['/marci', this.brand]),
+      });
     });
   }
 

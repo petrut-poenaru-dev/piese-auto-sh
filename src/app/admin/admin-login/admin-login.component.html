@@ -1,0 +1,43 @@
+<section class="login-section">
+  <div class="login-card">
+    <span class="section-eyebrow">ADMIN</span>
+    <h1 class="login-title">Autentificare</h1>
+    <p class="login-subtitle">Intră în panoul de administrare pentru a gestiona mașinile și piesele.</p>
+
+    <form class="login-form" (ngSubmit)="submit()">
+      <label class="field">
+        <span class="field-label">Email</span>
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="admin@piese-auto.ro"
+          autocomplete="username"
+          required
+        />
+      </label>
+
+      <label class="field">
+        <span class="field-label">Parolă</span>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          required
+        />
+      </label>
+
+      @if (eroare) {
+        <p class="form-error">{{ eroare }}</p>
+      }
+
+      <button type="submit" class="btn-primary" [disabled]="seIncarca">
+        {{ seIncarca ? 'Se autentifică…' : 'Autentificare' }}
+      </button>
+    </form>
+
+    <a routerLink="/" class="back-link">&larr; Înapoi la site</a>
+  </div>
+</section>

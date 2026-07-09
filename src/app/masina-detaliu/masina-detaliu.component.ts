@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import {
-  Masina,
-  gasesteMasina,
-  masiniSimilare,
-} from '../shared/masini.data';
+import { MasiniService } from '../shared/masini.service';
+import { Masina } from '../shared/models';
 
 @Component({
   selector: 'app-masina-detaliu',
@@ -18,20 +15,24 @@ export class MasinaDetaliuComponent implements OnInit {
   activeThumb = 0;
   galleryViews = ['Față', 'Lateral', 'Spate', 'Interior'];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private masiniService: MasiniService
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id') ?? '';
-      this.masina = gasesteMasina(id);
 
-      if (!this.masina) {
-        this.router.navigate(['/']);
-        return;
-      }
-
-      this.activeThumb = 0;
-      this.similare = masiniSimilare(this.masina, 3);
+      this.masiniService.getById(id).subscribe({
+        next: masina => {
+          this.masina = masina;
+          this.activeThumb = 0;
+          this.masiniService.getSimilare(id, 3).subscribe(s => (this.similare = s));
+        },
+        error: () => this.router.navigate(['/']),
+      });
     });
   }
 

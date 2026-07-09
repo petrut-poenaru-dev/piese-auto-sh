@@ -1,0 +1,115 @@
+<header class="admin-header">
+  <div class="admin-header-inner">
+    <div>
+      <span class="section-eyebrow">PANOU ADMIN</span>
+      <h1 class="admin-title">Mașini &amp; piese</h1>
+    </div>
+    <div class="admin-header-actions">
+      <span class="admin-email">{{ auth.adminEmail() }}</span>
+      <a routerLink="/" class="btn-secondary">Vezi site</a>
+      <button type="button" class="btn-secondary" (click)="logout()">Ieși din cont</button>
+    </div>
+  </div>
+</header>
+
+<main class="admin-main">
+
+  @if (seIncarca) {
+    <p class="admin-status">Se încarcă…</p>
+  } @else if (eroare) {
+    <p class="admin-status admin-status-error">{{ eroare }}</p>
+  }
+
+  <!-- ── MAȘINI DE VÂNZARE ── -->
+  <section class="admin-section">
+    <div class="admin-section-header">
+      <div>
+        <h2 class="admin-section-title">Mașini de vânzare</h2>
+        <p class="admin-section-subtitle">{{ masiniVanzare.length }} mașini listate</p>
+      </div>
+      <a [routerLink]="['/admin/masini/noua']" [queryParams]="{ tip: 'vanzare' }" class="btn-primary">
+        + Adaugă mașină de vânzare
+      </a>
+    </div>
+
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Mașină</th>
+            <th>An</th>
+            <th>Km</th>
+            <th>Preț</th>
+            <th>Stare</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (car of masiniVanzare; track car.id) {
+            <tr>
+              <td class="cell-name">{{ car.name }}</td>
+              <td>{{ car.an }}</td>
+              <td>{{ car.km }}</td>
+              <td>{{ car.pret | currency:'EUR':'symbol':'1.0-0' }}</td>
+              <td><span class="chip">{{ car.stare }}</span></td>
+              <td class="cell-actions">
+                <a [routerLink]="['/admin/masini', car.id]" class="link-action">Editează</a>
+                <button type="button" class="link-action link-danger" (click)="sterge(car)">Șterge</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6" class="cell-empty">Nu există mașini de vânzare încă.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── MAȘINI DE DEZMEMBRAT ── -->
+  <section class="admin-section">
+    <div class="admin-section-header">
+      <div>
+        <h2 class="admin-section-title">Mașini de dezmembrat</h2>
+        <p class="admin-section-subtitle">{{ masiniDezmembrat.length }} mașini · piese configurabile per mașină</p>
+      </div>
+      <a [routerLink]="['/admin/masini/noua']" [queryParams]="{ tip: 'dezmembrat' }" class="btn-primary">
+        + Adaugă mașină de dezmembrat
+      </a>
+    </div>
+
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Mașină</th>
+            <th>Marcă</th>
+            <th>An</th>
+            <th>Status</th>
+            <th>Piese</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (car of masiniDezmembrat; track car.id) {
+            <tr>
+              <td class="cell-name">{{ car.name }}</td>
+              <td>{{ car.brand }}</td>
+              <td>{{ car.an }}</td>
+              <td><span class="chip">{{ car.disponibilitate }}</span></td>
+              <td>
+                <strong>{{ car.totalPiese }}</strong> / {{ car.totalCatalog | number }}
+              </td>
+              <td class="cell-actions">
+                <a [routerLink]="['/admin/masini', car.id]" class="link-action">Editează &amp; piese</a>
+                <button type="button" class="link-action link-danger" (click)="sterge(car)">Șterge</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6" class="cell-empty">Nu există mașini de dezmembrat încă.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>

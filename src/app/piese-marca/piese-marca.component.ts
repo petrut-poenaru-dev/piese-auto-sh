@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
-import { MasinaDezmembrare, masiniDinBrand } from '../shared/dezmembrari.data';
+import { DezmembrariService } from '../shared/dezmembrari.service';
+import { MasinaDezmembrare } from '../shared/models';
 
 // Pasul 2 din căutare: toate mașinile mărcii alese, aflate la dezmembrat.
 @Component({
@@ -14,12 +15,12 @@ export class PieseMarcaComponent implements OnInit {
   brand = '';
   masini: MasinaDezmembrare[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private dezmembrariService: DezmembrariService) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.brand = params.get('brand') ?? '';
-      this.masini = masiniDinBrand(this.brand);
+      this.dezmembrariService.getByBrand(this.brand).subscribe(m => (this.masini = m));
     });
   }
 

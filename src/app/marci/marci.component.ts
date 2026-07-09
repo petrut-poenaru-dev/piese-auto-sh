@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { statBrand } from '../shared/dezmembrari.data';
+import { BrandsService } from '../shared/brands.service';
+import { StatBrand } from '../shared/models';
 
 @Component({
   selector: 'app-marci',
@@ -9,7 +10,15 @@ import { statBrand } from '../shared/dezmembrari.data';
   templateUrl: './marci.component.html',
   styleUrl: './marci.component.scss'
 })
-export class MarciComponent {
+export class MarciComponent implements OnInit {
+
+  constructor(private brandsService: BrandsService) {}
+
+  private stats: Record<string, StatBrand> = {};
+
+  ngOnInit() {
+    this.brandsService.getStats().subscribe(stats => (this.stats = stats));
+  }
 
   // svg = cheia logo-ului; key = param-ul de rută (lowercase) folosit la /marci/:brand
   brands = [
@@ -27,7 +36,7 @@ export class MarciComponent {
     { name: 'Honda',      key: 'honda',      svg: 'honda'    },
   ];
 
-  stat(key: string) {
-    return statBrand(key);
+  stat(key: string): StatBrand {
+    return this.stats[key] ?? { masini: 0, piese: 0 };
   }
 }

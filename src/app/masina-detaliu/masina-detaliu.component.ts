@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MasiniService } from '../shared/masini.service';
-import { Masina } from '../shared/models';
+import { coverStyle, Masina } from '../shared/models';
 
 @Component({
   selector: 'app-masina-detaliu',
@@ -39,4 +39,10 @@ export class MasinaDetaliuComponent implements OnInit {
   get tipLabel(): string {
     return this.masina?.tip === 'vanzare' ? 'De vânzare' : 'Pentru dezmembrat';
   }
+
+  bgUrl(url: string): string {
+    return `url('${url}') center/cover no-repeat`;
+  }
+
+  readonly coverStyle = coverStyle;
 }

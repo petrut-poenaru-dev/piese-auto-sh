@@ -80,7 +80,6 @@
     font-family: 'Manrope', sans-serif;
     font-size: 1.1875rem;
     font-weight: 700;
-    color: var(--on-surface);
 
     strong { color: var(--tertiary); font-weight: 800; }
   }
@@ -146,6 +145,27 @@
 .nav-cta {
   padding: 0.5rem 1.25rem;
   font-size: 0.8125rem;
+  text-decoration: none;
+}
+
+.nav-cart-btn {
+  position: relative;
+}
+
+.nav-cart-badge {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 3px;
+  background: var(--tertiary);
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 999px;
 }
 
 .hamburger {
@@ -260,6 +280,48 @@
 
       &:hover { color: #fff; }
     }
+  }
+}
+
+.footer-anpc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  padding-bottom: 1.75rem;
+}
+
+.anpc-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+  svg { flex-shrink: 0; color: var(--tertiary); }
+
+  span {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+    font-size: 0.75rem;
+  }
+
+  strong {
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.8);
   }
 }
 

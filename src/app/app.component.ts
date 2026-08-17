@@ -1,6 +1,7 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CartService } from './shared/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent {
 
   private router = inject(Router);
+  readonly cartService = inject(CartService);
 
   navScrolled = false;
   mobileMenuOpen = false;

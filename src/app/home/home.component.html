@@ -4,10 +4,12 @@
 <section class="hero-section">
 
     <video
+      #heroVideo
       class="hero-bg-video"
       src="car.mp4"
       autoplay
       muted
+      [muted]="true"
       loop
       playsinline
     ></video>
@@ -27,13 +29,13 @@
       </p>
 
       <div class="hero-buttons">
-        <button class="btn-primary hero-btn-main">
+        <button class="btn-primary hero-btn-main" [routerLink]="['/marci']">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
           </svg>
           Caută Piese
         </button>
-        <button class="hero-btn-secondary">Află Mai Mult</button>
+        <button class="hero-btn-secondary" (click)="scrollToBrands()">Află Mai Mult</button>
       </div>
 
       <div class="hero-stats">
@@ -60,12 +62,12 @@
 <!-- ═══════════════════════════════════════════════
      BRANDS STRIP
 ═══════════════════════════════════════════════ -->
-<section class="brands-section">
+<section class="brands-section" id="marci-premium">
   <p class="brands-label">COMPATIBIL CU TOATE MĂRCILE PREMIUM</p>
   <div class="brands-strip">
 
     <!-- Audi -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'audi']">
       <svg class="brand-svg" viewBox="0 0 174 48" xmlns="http://www.w3.org/2000/svg" aria-label="Audi">
         <circle cx="24" cy="24" r="21.5" fill="none" stroke="currentColor" stroke-width="3.5"/>
         <circle cx="66" cy="24" r="21.5" fill="none" stroke="currentColor" stroke-width="3.5"/>
@@ -73,10 +75,10 @@
         <circle cx="150" cy="24" r="21.5" fill="none" stroke="currentColor" stroke-width="3.5"/>
       </svg>
       <span class="brand-name">Audi</span>
-    </div>
+    </a>
 
     <!-- BMW -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'bmw']">
       <svg class="brand-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-label="BMW">
         <circle cx="30" cy="30" r="28.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
         <path d="M30 1.5 A28.5 28.5 0 0 1 58.5 30 L30 30 Z" fill="currentColor"/>
@@ -85,118 +87,64 @@
         <text x="30" y="33.5" text-anchor="middle" font-size="6.5" font-weight="900" font-family="Arial,sans-serif" fill="currentColor">BMW</text>
       </svg>
       <span class="brand-name">BMW</span>
-    </div>
+    </a>
 
     <!-- Mercedes -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'mercedes']">
       <svg class="brand-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-label="Mercedes">
         <circle cx="30" cy="30" r="28.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
         <path d="M30,8 L37,26 L49,41 L30,38 L11,41 L23,26 Z" fill="currentColor"/>
       </svg>
       <span class="brand-name">Mercedes</span>
-    </div>
+    </a>
 
     <!-- Volkswagen -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'volkswagen']">
       <svg class="brand-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-label="Volkswagen">
         <circle cx="30" cy="30" r="28.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
         <path d="M18 16 L24 36 L30 22 L36 36 L42 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M14 26 L21 40 L30 44 L39 40 L46 26" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span class="brand-name">Volkswagen</span>
-    </div>
+    </a>
 
     <!-- Toyota -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'toyota']">
       <svg class="brand-svg" viewBox="0 0 80 56" xmlns="http://www.w3.org/2000/svg" aria-label="Toyota">
         <ellipse cx="40" cy="28" rx="39" ry="26" fill="none" stroke="currentColor" stroke-width="3"/>
         <ellipse cx="40" cy="22" rx="19" ry="12" fill="none" stroke="currentColor" stroke-width="3"/>
         <ellipse cx="40" cy="32" rx="8.5" ry="21" fill="none" stroke="currentColor" stroke-width="3"/>
       </svg>
       <span class="brand-name">Toyota</span>
-    </div>
+    </a>
 
     <!-- Ford -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'ford']">
       <svg class="brand-svg" viewBox="0 0 120 56" xmlns="http://www.w3.org/2000/svg" aria-label="Ford">
         <ellipse cx="60" cy="28" rx="58" ry="26" fill="none" stroke="currentColor" stroke-width="3"/>
         <text x="60" y="37" text-anchor="middle" font-size="28" font-style="italic" font-weight="700" font-family="Georgia,serif" fill="currentColor">Ford</text>
       </svg>
       <span class="brand-name">Ford</span>
-    </div>
+    </a>
 
     <!-- Renault -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'renault']">
       <svg class="brand-svg" viewBox="0 0 60 74" xmlns="http://www.w3.org/2000/svg" aria-label="Renault">
         <polygon points="30,3 57,37 30,71 3,37" fill="none" stroke="currentColor" stroke-width="3.5"/>
         <polygon points="30,15 45,37 30,59 15,37" fill="none" stroke="currentColor" stroke-width="2.5"/>
       </svg>
       <span class="brand-name">Renault</span>
-    </div>
+    </a>
 
     <!-- Opel -->
-    <div class="brand-chip">
+    <a class="brand-chip" [routerLink]="['/marci', 'opel']">
       <svg class="brand-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-label="Opel">
         <circle cx="30" cy="30" r="28.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
         <path d="M36 8 L21 32 L30 32 L24 52 L39 28 L30 28 Z" fill="currentColor"/>
       </svg>
       <span class="brand-name">Opel</span>
-    </div>
+    </a>
 
-  </div>
-</section>
-
-
-<!-- ═══════════════════════════════════════════════
-     SEARCH
-═══════════════════════════════════════════════ -->
-<section class="search-section">
-  <div class="container">
-    <span class="section-eyebrow">CĂUTARE RAPIDĂ</span>
-    <h2 class="section-title">Caută Piese Auto</h2>
-    <p class="section-subtitle">
-      Introdu marca, modelul sau numărul VIN pentru a găsi piesa potrivită
-    </p>
-
-    <div class="search-bar">
-      <select class="search-select" #brandSel>
-        <option value="">Marcă</option>
-        @for (brand of brands; track brand) {
-          <option>{{ brand }}</option>
-        }
-      </select>
-
-      <select class="search-select">
-        <option value="">Model</option>
-        <option>CLS</option>
-        <option>E-Class</option>
-        <option>S-Class</option>
-        <option>Seria 3</option>
-        <option>Seria 5</option>
-        <option>A4</option>
-        <option>A6</option>
-      </select>
-
-      <select class="search-select">
-        <option value="">An</option>
-        @for (year of years; track year) {
-          <option>{{ year }}</option>
-        }
-      </select>
-
-      <input
-        class="search-input"
-        type="text"
-        placeholder="sau caută după VIN / Cod piesă…"
-      />
-
-      <button class="btn-primary search-btn" (click)="cautaMarca(brandSel.value)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-        </svg>
-        Caută
-      </button>
-    </div>
   </div>
 </section>
 
@@ -211,7 +159,7 @@
         <span class="section-eyebrow">PIESE VERIFICATE</span>
         <h2 class="section-title">Produse Recomandate</h2>
       </div>
-      <a href="#" class="see-all">Vezi toate &rarr;</a>
+      <a routerLink="/produse" class="see-all">Vezi toate &rarr;</a>
     </div>
 
     <div class="products-grid">
@@ -236,7 +184,9 @@
             <p class="product-sku">SKU: {{ product.sku }}</p>
             <div class="product-footer">
               <span class="product-price">{{ product.price }} Lei</span>
-              <button class="btn-primary product-btn">Adaugă în coș</button>
+              <button class="btn-primary product-btn" (click)="adaugaInCos(product)">
+                @if (justAddedSku === product.sku) { Adăugat ✓ } @else { Adaugă în coș }
+              </button>
             </div>
           </div>
         </article>
@@ -256,13 +206,20 @@
         <span class="section-eyebrow">STOC AUTOTURISME</span>
         <h2 class="section-title">Mașini de Vânzare</h2>
       </div>
-      <a href="#" class="see-all">Vezi toate &rarr;</a>
+      <a [routerLink]="['/masini', 'vanzare']" class="see-all">Vezi toate &rarr;</a>
     </div>
 
     <div class="cars-grid">
       @for (car of masiniVanzare; track car.name) {
-        <article class="car-card">
-          <div class="car-image" [style.background]="car.bg">
+        <article
+          class="car-card"
+          tabindex="0"
+          role="link"
+          [attr.aria-label]="'Vezi detalii ' + car.name"
+          (click)="goToCar(car.id)"
+          (keydown.enter)="goToCar(car.id)"
+        >
+          <div class="car-image" [style.background]="coverStyle(car)">
             <svg class="car-icon" width="84" height="84" viewBox="0 0 120 120" fill="none">
               <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
                 stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -287,7 +244,7 @@
             </div>
             <div class="car-footer">
               <span class="car-price">{{ car.pret }} €</span>
-              <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]">Informații</a>
+              <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]" (click)="$event.stopPropagation()">Informații</a>
             </div>
           </div>
         </article>
@@ -307,7 +264,7 @@
         <span class="section-eyebrow">PARC DEZMEMBRĂRI</span>
         <h2 class="section-title">Mașini pentru Dezmembrat</h2>
       </div>
-      <a href="#" class="see-all">Vezi toate &rarr;</a>
+      <a [routerLink]="['/masini', 'dezmembrat']" class="see-all">Vezi toate &rarr;</a>
     </div>
 
     <p class="dismantle-intro">
@@ -317,8 +274,15 @@
 
     <div class="cars-grid">
       @for (car of masiniDezmembrat; track car.cod) {
-        <article class="car-card">
-          <div class="car-image" [style.background]="car.bg">
+        <article
+          class="car-card"
+          tabindex="0"
+          role="link"
+          [attr.aria-label]="'Vezi detalii ' + car.name"
+          (click)="goToCar(car.id)"
+          (keydown.enter)="goToCar(car.id)"
+        >
+          <div class="car-image" [style.background]="coverStyle(car)">
             <svg class="car-icon" width="84" height="84" viewBox="0 0 120 120" fill="none">
               <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
                 stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -342,8 +306,8 @@
             </div>
             <p class="car-code">COD PARC: {{ car.cod }}</p>
             <div class="car-footer">
-              <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]">Informații</a>
-              <button class="btn-secondary dismantle-btn">Solicită piesă</button>
+              <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]" (click)="$event.stopPropagation()">Informații</a>
+              <button class="btn-secondary dismantle-btn" (click)="$event.stopPropagation()">Solicită piesă</button>
             </div>
           </div>
         </article>

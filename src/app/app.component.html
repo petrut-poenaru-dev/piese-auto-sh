@@ -22,7 +22,6 @@
         </svg>
         Caută VIN
       </a></li>
-      <li><a href="#">Blog</a></li>
       <li><a routerLink="/contact" routerLinkActive="nav-active">Contact</a></li>
     </ul>
 
@@ -32,12 +31,15 @@
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
       </a>
-      <button class="nav-icon-btn" aria-label="Cos cumparaturi">
+      <a class="nav-icon-btn nav-cart-btn" routerLink="/cos" aria-label="Coș de cumpărături">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/>
         </svg>
-      </button>
-      <button class="btn-primary nav-cta">Comandă Acum</button>
+        @if (cartService.count() > 0) {
+          <span class="nav-cart-badge">{{ cartService.count() }}</span>
+        }
+      </a>
+      <a class="btn-primary nav-cta" routerLink="/cos">Comandă Acum</a>
       <button class="hamburger" [class.open]="mobileMenuOpen" (click)="toggleMobileMenu()" aria-label="Meniu">
         <span></span>
         <span></span>
@@ -91,21 +93,17 @@
       <div class="footer-col">
         <h4>Produse</h4>
         <ul>
-          <li><a href="#">Piese caroserie</a></li>
-          <li><a href="#">Motor &amp; Transmisie</a></li>
-          <li><a href="#">Interior</a></li>
-          <li><a href="#">Electronice</a></li>
-          <li><a href="#">Suspensie &amp; Frâne</a></li>
+          <li><a routerLink="/produse">Piese caroserie</a></li>
+          <li><a routerLink="/produse">Motor &amp; Transmisie</a></li>
+          <li><a routerLink="/produse">Interior</a></li>
+          <li><a routerLink="/produse">Electronice</a></li>
+          <li><a routerLink="/produse">Suspensie &amp; Frâne</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Companie</h4>
         <ul>
-          <li><a href="#">Despre noi</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Cariere</a></li>
-          <li><a href="#">Parteneri</a></li>
           <li><a routerLink="/contact">Contact</a></li>
         </ul>
       </div>
@@ -131,12 +129,29 @@
 
     </div>
 
+    <div class="footer-anpc">
+      <a class="anpc-badge" href="https://anpc.ro/" target="_blank" rel="noopener" aria-label="Autoritatea Națională pentru Protecția Consumatorilor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 3 6v6c0 5 3.8 9.4 9 10 5.2-.6 9-5 9-10V6l-9-4z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>
+          <strong>ANPC</strong>
+          Soluționarea Alternativă a Litigiilor (SAL)
+        </span>
+      </a>
+      <a class="anpc-badge" href="https://consumer-redress.ec.europa.eu/dispute-resolution-bodies" target="_blank" rel="noopener" aria-label="Platforma europeană de soluționare online a litigiilor">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+        <span>
+          <strong>SOL</strong>
+          Soluționarea Online a Litigiilor (UE)
+        </span>
+      </a>
+    </div>
+
     <div class="footer-bottom">
       <p>© 2026 PieseAutoSh. Toate drepturile rezervate.</p>
       <div class="footer-legal">
-        <a href="#">Termeni și condiții</a>
-        <a href="#">Confidențialitate</a>
-        <a href="#">Cookie-uri</a>
+        <a routerLink="/termeni-si-conditii">Termeni și condiții</a>
+        <a routerLink="/confidentialitate">Confidențialitate</a>
+        <a routerLink="/cookie-uri">Cookie-uri</a>
       </div>
     </div>
   </div>

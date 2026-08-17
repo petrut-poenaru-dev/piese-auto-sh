@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AdminCarsService } from '../admin-cars.service';
+import { AdminOrdersService } from '../admin-orders.service';
 import { AuthService } from '../../auth/auth.service';
-import { AdminCar } from '../../shared/models';
+import { AdminCar, Order } from '../../shared/models';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,17 +14,22 @@ import { AdminCar } from '../../shared/models';
 })
 export class AdminDashboardComponent implements OnInit {
   cars: AdminCar[] = [];
+  orders: Order[] = [];
   seIncarca = true;
   eroare = '';
 
+  readonly statusuriComanda = ['nou', 'confirmat', 'expediat', 'livrat', 'anulat'];
+
   constructor(
     private carsService: AdminCarsService,
+    private ordersService: AdminOrdersService,
     public auth: AuthService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.incarca();
+    this.incarcaComenzi();
   }
 
   incarca() {
@@ -37,6 +43,20 @@ export class AdminDashboardComponent implements OnInit {
         this.eroare = 'Nu am putut încărca mașinile.';
         this.seIncarca = false;
       },
+    });
+  }
+
+  incarcaComenzi() {
+    this.ordersService.list().subscribe({
+      next: orders => (this.orders = orders),
+      error: () => {},
+    });
+  }
+
+  schimbaStatus(order: Order, status: string) {
+    this.ordersService.updateStatus(order.id, status).subscribe({
+      next: updated => (this.orders = this.orders.map(o => (o.id === updated.id ? updated : o))),
+      error: () => alert('Nu am putut actualiza statusul comenzii.'),
     });
   }
 

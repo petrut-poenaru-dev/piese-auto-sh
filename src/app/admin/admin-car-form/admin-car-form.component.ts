@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AdminCarsService } from '../admin-cars.service';
-import { AdminCar, AdminCarInput, AdminPart, TipMasina } from '../../shared/models';
+import { AdminCar, AdminCarImage, AdminCarInput, AdminPart, TipMasina } from '../../shared/models';
 
 const GRADIENT_PRESETS = [
   'linear-gradient(135deg, #16213e 0%, #3a4550 100%)',
@@ -62,6 +62,11 @@ export class AdminCarFormComponent implements OnInit {
   // ── Piese (doar în modul editare, pt. mașini de dezmembrat) ──
   parts: AdminPart[] = [];
   newPart = this.blankPart();
+
+  // ── Poze (doar în modul editare) ──
+  images: AdminCarImage[] = [];
+  seIncarcaPoze = false;
+  eroarePoze = '';
 
   // Odată ce utilizatorul editează manual brand key-ul, nu mai suprascriem cu sugestia automată.
   private brandKeyAtinsManual = false;
@@ -132,6 +137,7 @@ export class AdminCarFormComponent implements OnInit {
       disponibilitate: car.disponibilitate ?? '',
     };
     this.parts = car.parts;
+    this.images = [...car.images].sort((a, b) => a.order - b.order);
   }
 
   get esteDezmembrat(): boolean {
@@ -215,6 +221,50 @@ export class AdminCarFormComponent implements OnInit {
     this.carsService.removePart(part.id).subscribe({
       next: () => (this.parts = this.parts.filter(p => p.id !== part.id)),
       error: () => alert('Ștergerea a eșuat.'),
+    });
+  }
+
+  // ── Poze ──
+  onImagesSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const files = Array.from(input.files ?? []);
+    input.value = '';
+    if (!this.carId || files.length === 0) return;
+
+    this.eroarePoze = '';
+    this.seIncarcaPoze = true;
+
+    this.carsService.uploadImages(this.carId, files).subscribe({
+      next: uploaded => {
+        this.images = [...this.images, ...uploaded].sort((a, b) => a.order - b.order);
+        this.seIncarcaPoze = false;
+      },
+      error: err => {
+        this.eroarePoze = err?.error?.error ?? 'Încărcarea pozelor a eșuat.';
+        this.seIncarcaPoze = false;
+      },
+    });
+  }
+
+  stergePoza(image: AdminCarImage) {
+    if (!confirm('Ștergi această poză?')) return;
+
+    this.carsService.removeImage(image.id).subscribe({
+      next: () => (this.images = this.images.filter(i => i.id !== image.id)),
+      error: () => alert('Ștergerea pozei a eșuat.'),
+    });
+  }
+
+  mutaPoza(index: number, directie: -1 | 1) {
+    const target = index + directie;
+    if (!this.carId || target < 0 || target >= this.images.length) return;
+
+    const reordered = [...this.images];
+    [reordered[index], reordered[target]] = [reordered[target], reordered[index]];
+    this.images = reordered;
+
+    this.carsService.reorderImages(this.carId, reordered.map(i => i.id)).subscribe({
+      error: () => alert('Reordonarea a eșuat.'),
     });
   }
 }

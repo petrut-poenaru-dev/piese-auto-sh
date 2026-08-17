@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { decodeVin, DEMO_VINS, VinInfo } from '../shared/vin-decoder';
 import { DezmembrariService } from '../shared/dezmembrari.service';
-import { MasinaDezmembrare } from '../shared/models';
+import { coverStyle, MasinaDezmembrare } from '../shared/models';
 
 type SearchState = 'idle' | 'found' | 'no-brand' | 'no-stock' | 'invalid';
 
@@ -94,4 +94,6 @@ export class VinSearchComponent implements OnInit {
   get totalPieseDisponibile(): number {
     return this.rezultate.reduce((s, m) => s + m.totalPiese, 0);
   }
+
+  readonly coverStyle = coverStyle;
 }

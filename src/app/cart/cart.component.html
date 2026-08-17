@@ -1,0 +1,77 @@
+<section class="cart-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">Acasă</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Coș</span>
+    </nav>
+    <span class="section-eyebrow">COȘUL TĂU</span>
+    <h1 class="cart-title">Piesele selectate</h1>
+  </div>
+</section>
+
+<section class="cart-section">
+  <div class="container">
+
+    @if (cartService.items().length === 0) {
+      <div class="cart-empty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <h2>Coșul tău este gol</h2>
+        <p>Adaugă piese din catalogul nostru pentru a plasa o comandă.</p>
+        <a routerLink="/marci" class="btn-primary">Caută piese</a>
+      </div>
+    } @else {
+      <div class="cart-layout">
+
+        <div class="cart-items">
+          @for (item of cartService.items(); track item.id) {
+            <div class="cart-item">
+              <div class="cart-item-info">
+                <p class="cart-item-nume">{{ item.nume }}</p>
+                @if (item.cod) { <p class="cart-item-cod">{{ item.cod }}</p> }
+              </div>
+
+              <div class="cart-item-qty">
+                <button type="button" (click)="scade(item.id, item.cantitate)" aria-label="Scade cantitatea">−</button>
+                <span>{{ item.cantitate }}</span>
+                <button type="button" (click)="creste(item.id, item.cantitate)" aria-label="Crește cantitatea">+</button>
+              </div>
+
+              <span class="cart-item-pret">{{ item.pret * item.cantitate | currency:'RON':'symbol':'1.0-0' }}</span>
+
+              <button type="button" class="cart-item-remove" (click)="cartService.remove(item.id)" aria-label="Șterge din coș">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6h16z"/>
+                </svg>
+              </button>
+            </div>
+          }
+
+          <button type="button" class="cart-clear" (click)="cartService.clear()">Golește coșul</button>
+        </div>
+
+        <aside class="cart-summary">
+          <h2>Total comandă</h2>
+          <div class="cart-summary-row">
+            <span>Produse ({{ cartService.count() }})</span>
+            <span>{{ cartService.total() | currency:'RON':'symbol':'1.0-0' }}</span>
+          </div>
+          <div class="cart-summary-row">
+            <span>Livrare curier</span>
+            <span>La confirmare</span>
+          </div>
+          <div class="cart-summary-total">
+            <span>Total</span>
+            <span>{{ cartService.total() | currency:'RON':'symbol':'1.0-0' }}</span>
+          </div>
+          <a routerLink="/checkout" class="btn-primary cart-checkout-btn">Finalizează comanda</a>
+          <p class="cart-summary-note">Plată ramburs la livrarea prin curier.</p>
+        </aside>
+
+      </div>
+    }
+
+  </div>
+</section>

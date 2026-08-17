@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MasiniService } from '../shared/masini.service';
-import { Masina } from '../shared/models';
+import { CartService } from '../shared/cart.service';
+import { coverStyle, Masina } from '../shared/models';
+import { PRODUCTS } from '../shared/products';
 
 @Component({
   selector: 'app-home',
@@ -9,52 +11,52 @@ import { Masina } from '../shared/models';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  constructor(private router: Router, private masiniService: MasiniService) {}
+  @ViewChild('heroVideo') heroVideo?: ElementRef<HTMLVideoElement>;
+
+  constructor(
+    private router: Router,
+    private masiniService: MasiniService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
     this.masiniService.getAll('vanzare').subscribe(m => (this.masiniVanzare = m));
     this.masiniService.getAll('dezmembrat').subscribe(m => (this.masiniDezmembrat = m));
   }
 
-  brands = ['Audi', 'BMW', 'Mercedes', 'Volkswagen', 'Toyota', 'Ford', 'Renault', 'Opel'];
-
-  // Bara de căutare: marcă → lista de mașini de dezmembrat ale mărcii
-  cautaMarca(brand: string): void {
-    if (brand) {
-      this.router.navigate(['/marci', brand.toLowerCase()]);
-    } else {
-      this.router.navigate(['/marci']);
-    }
+  ngAfterViewInit() {
+    // Angular hydration poate reseta proprietatea `muted` deși atributul rămâne setat
+    if (this.heroVideo) this.heroVideo.nativeElement.muted = true;
   }
 
-  products = [
-    {
-      name: 'Prag stânga Mercedes CLS W219',
-      sku: 'MRC-W219-001',
-      price: 450,
-      condition: 'OEM Quality',
-      stock: 'In Stoc',
-      bg: 'linear-gradient(135deg, #1a1a2e 0%, #2d3338 100%)'
-    },
-    {
-      name: 'Capotă motor BMW Seria 3 E46',
-      sku: 'BMW-E46-047',
-      price: 320,
-      condition: 'German Engineered',
-      stock: 'In Stoc',
-      bg: 'linear-gradient(135deg, #16213e 0%, #3a4550 100%)'
-    },
-    {
-      name: 'Bară față Audi A4 B8 2008–2012',
-      sku: 'AUD-A4B8-219',
-      price: 380,
-      condition: 'OEM Quality',
-      stock: 'Ultimele 2',
-      bg: 'linear-gradient(135deg, #0f3460 0%, #2d4a6e 100%)'
-    }
-  ];
+  // Card marcă (strip-ul "mărci premium") → aceeași destinație ca pe pagina /marci
+  goToBrand(brandKey: string): void {
+    this.router.navigate(['/marci', brandKey]);
+  }
+
+  // Card mașină → pagina de detaliu (întreg cardul e clickabil, nu doar butonul "Informații")
+  goToCar(id: string): void {
+    this.router.navigate(['/masina', id]);
+  }
+
+  // Buton hero secundar
+  scrollToBrands(): void {
+    document.getElementById('marci-premium')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  products = PRODUCTS;
+
+  justAddedSku: string | null = null;
+
+  adaugaInCos(product: (typeof this.products)[number]): void {
+    this.cartService.add({ id: product.sku, nume: product.name, cod: product.sku, pret: product.price });
+    this.justAddedSku = product.sku;
+    setTimeout(() => {
+      if (this.justAddedSku === product.sku) this.justAddedSku = null;
+    }, 1500);
+  }
 
   faqs = [
     {
@@ -63,7 +65,7 @@ export class HomeComponent implements OnInit {
     },
     {
       q: 'Cum verific compatibilitatea cu mașina mea?',
-      a: 'Puteți verifica compatibilitatea folosind numărul VIN al vehiculului sau contactând echipa noastră. Oferim și un tool de căutare după marcă, model și an de fabricație.'
+      a: 'Puteți verifica compatibilitatea folosind numărul VIN al vehiculului în pagina Caută VIN sau contactând echipa noastră.'
     },
     {
       q: 'Oferiți garanție pentru piese?',
@@ -100,8 +102,6 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  years = Array.from({ length: 15 }, (_, i) => 2024 - i);
-
   // ── Mașini (încărcate din API, folosite și pe pagina de detaliu) ──
   masiniVanzare: Masina[] = [];
   masiniDezmembrat: Masina[] = [];
@@ -115,4 +115,6 @@ export class HomeComponent implements OnInit {
   stars(n: number): number[] {
     return Array(n).fill(0);
   }
+
+  readonly coverStyle = coverStyle;
 }

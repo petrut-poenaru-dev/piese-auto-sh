@@ -193,7 +193,7 @@
       @for (m of rezultate; track m.id) {
         <a class="masina-card" [routerLink]="['/marci', m.brandKey, m.id]">
 
-          <div class="masina-img" [style.background]="m.bg">
+          <div class="masina-img" [style.background]="coverStyle(m)">
             <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" class="car-thumb">
               <path d="M22 62 Q22 50 38 48 L70 44 Q86 32 110 32 L150 34 Q170 36 184 50 L196 54 Q204 56 204 62 L204 66 Q204 68 200 68 L24 68 Q22 68 22 66 Z"
                     fill="rgba(255,255,255,0.06)" stroke="currentColor" stroke-width="2.2"/>

@@ -147,6 +147,23 @@
   &:hover { text-decoration: underline; }
 }
 
+.admin-order-sub {
+  color: var(--on-surface-var);
+  font-size: 0.8125rem;
+}
+
+.admin-order-status {
+  background: var(--surface-low);
+  border: 1px solid var(--surface-high);
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
 .link-danger { color: #b3261e; }
 
 .btn-primary {

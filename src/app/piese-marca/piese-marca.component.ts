@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DecimalPipe } from '@angular/common';
 import { DezmembrariService } from '../shared/dezmembrari.service';
-import { MasinaDezmembrare } from '../shared/models';
+import { coverStyle, MasinaDezmembrare } from '../shared/models';
 
 // Pasul 2 din căutare: toate mașinile mărcii alese, aflate la dezmembrat.
 @Component({
@@ -31,4 +31,6 @@ export class PieseMarcaComponent implements OnInit {
   get totalPiese(): number {
     return this.masini.reduce((s, m) => s + m.totalPiese, 0);
   }
+
+  readonly coverStyle = coverStyle;
 }

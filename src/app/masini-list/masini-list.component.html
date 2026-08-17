@@ -1,0 +1,100 @@
+<!-- ═══════════════════════════════════════════════
+     PAGE HEADER
+═══════════════════════════════════════════════ -->
+<section class="page-header">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a routerLink="/">Acasă</a>
+      <span class="sep">›</span>
+      <span>{{ pageTitle }}</span>
+    </nav>
+    <h1 class="page-title">{{ pageTitle }}</h1>
+    <p class="page-subtitle">
+      @if (isVanzare) {
+        Descoperă toate mașinile disponibile pentru cumpărare din stocul nostru.
+      } @else {
+        Caută piese de pe toate mașinile aflate în parcul de dezmembrare.
+      }
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     MAȘINI GRID
+═══════════════════════════════════════════════ -->
+<section class="masini-section">
+  <div class="container">
+
+    @if (masini.length) {
+      <p class="rezultate-info">
+        {{ masini.length }} {{ masini.length === 1 ? 'mașină' : 'mașini' }} disponibile
+      </p>
+
+      <div class="cars-grid">
+        @for (car of masini; track car.id) {
+          <article
+            class="car-card"
+            tabindex="0"
+            role="link"
+            [attr.aria-label]="'Vezi detalii ' + car.name"
+            (click)="goToCar(car.id)"
+            (keydown.enter)="goToCar(car.id)"
+          >
+            <div class="car-image" [style.background]="coverStyle(car)">
+              <svg class="car-icon" width="84" height="84" viewBox="0 0 120 120" fill="none">
+                <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
+                  stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 74 L106 74 Q108 74 108 78 L108 84 L12 84 L12 78 Q12 74 14 74 Z"
+                  stroke="rgba(255,255,255,0.28)" stroke-width="2" stroke-linejoin="round"/>
+                <circle cx="36" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                <circle cx="84" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                <path d="M40 50 L56 50 L56 64 L33 64 Z M64 50 L78 50 Q83 51 86 56 L88 64 L64 64 Z"
+                  stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+              <span class="car-year-float">{{ car.an }}</span>
+              @if (isVanzare) {
+                <span class="car-status-float">{{ car.stare }}</span>
+              } @else {
+                <span class="dismantle-tag-float">{{ car.disponibilitate }}</span>
+              }
+            </div>
+
+            <div class="car-body">
+              <h3 class="car-name">{{ car.name }}</h3>
+              <div class="car-specs">
+                <span class="spec"><strong>{{ car.km }}</strong></span>
+                <span class="spec">{{ car.combustibil }}</span>
+                @if (isVanzare) {
+                  <span class="spec">{{ car.cutie }}</span>
+                  <span class="spec">{{ car.putere }}</span>
+                } @else {
+                  <span class="spec">{{ car.motor }}</span>
+                }
+              </div>
+              @if (!isVanzare) {
+                <p class="car-code">COD PARC: {{ car.cod }}</p>
+              }
+              <div class="car-footer">
+                @if (isVanzare) {
+                  <span class="car-price">{{ car.pret }} €</span>
+                }
+                <a class="btn-primary car-btn" [routerLink]="['/masina', car.id]" (click)="$event.stopPropagation()">Informații</a>
+                @if (!isVanzare) {
+                  <button class="btn-secondary dismantle-btn" (click)="$event.stopPropagation()">Solicită piesă</button>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <h2>Momentan nu avem mașini disponibile</h2>
+        <p>Adăugăm mașini noi în fiecare săptămână. Contactează-ne pentru detalii.</p>
+        <a routerLink="/contact" class="cta-btn-primary">Contactează-ne</a>
+      </div>
+    }
+
+  </div>
+</section>

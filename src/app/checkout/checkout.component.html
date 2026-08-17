@@ -1,0 +1,151 @@
+<section class="checkout-hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/">Acasă</a>
+      <span class="breadcrumb-sep">›</span>
+      <a routerLink="/cos">Coș</a>
+      <span class="breadcrumb-sep">›</span>
+      <span>Finalizare comandă</span>
+    </nav>
+    <span class="section-eyebrow">FINALIZARE COMANDĂ</span>
+    <h1 class="checkout-title">Livrare prin curier</h1>
+  </div>
+</section>
+
+<section class="checkout-section">
+  <div class="container">
+
+    @if (comandaFinalizata) {
+      <div class="checkout-success">
+        <div class="success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2>Comandă înregistrată!</h2>
+        <p>Numărul comenzii tale este <strong>{{ comandaFinalizata.id }}</strong>.</p>
+        <p>Te contactăm telefonic la <strong>{{ comandaFinalizata.telefon }}</strong> pentru confirmare. Plata se face ramburs, la livrarea prin curier.</p>
+        <p class="checkout-success-total">Total de plată: {{ comandaFinalizata.total | currency:'RON':'symbol':'1.0-0' }}</p>
+        <button type="button" class="btn-primary" (click)="inapoiAcasa()">Înapoi la magazin</button>
+      </div>
+    } @else if (cartService.items().length === 0) {
+      <div class="checkout-empty">
+        <h2>Coșul tău este gol</h2>
+        <p>Adaugă piese în coș înainte de a finaliza o comandă.</p>
+        <a routerLink="/marci" class="btn-primary">Caută piese</a>
+      </div>
+    } @else {
+      <div class="checkout-layout">
+
+        <form class="checkout-form" (ngSubmit)="trimite(checkoutForm)" #checkoutForm="ngForm">
+          <h2 class="form-section-title">Date de livrare</h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="nume">Nume complet <span class="required">*</span></label>
+              <input id="nume" type="text" class="form-input" placeholder="Ion Popescu"
+                [class.invalid]="nume.invalid && (nume.touched || formSubmitted)"
+                [(ngModel)]="form.nume" name="nume" required #nume="ngModel" />
+              @if (nume.invalid && (nume.touched || formSubmitted)) {
+                <span class="field-error">Numele complet este obligatoriu.</span>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="telefon">Telefon <span class="required">*</span></label>
+              <input id="telefon" type="tel" class="form-input" placeholder="+40 7XX XXX XXX"
+                [class.invalid]="telefon.invalid && (telefon.touched || formSubmitted)"
+                [(ngModel)]="form.telefon" name="telefon" required #telefon="ngModel" />
+              @if (telefon.invalid && (telefon.touched || formSubmitted)) {
+                <span class="field-error">Telefonul este obligatoriu.</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input id="email" type="email" class="form-input" placeholder="ion@exemplu.ro"
+              [class.invalid]="email.invalid && (email.touched || formSubmitted)"
+              [(ngModel)]="form.email" name="email" email #email="ngModel" />
+            @if (email.invalid && (email.touched || formSubmitted)) {
+              <span class="field-error">Adresa de email nu este validă.</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="adresa">Adresă livrare <span class="required">*</span></label>
+            <input id="adresa" type="text" class="form-input" placeholder="Str. Exemplu, nr. 10, bl. A, ap. 5"
+              [class.invalid]="adresa.invalid && (adresa.touched || formSubmitted)"
+              [(ngModel)]="form.adresa" name="adresa" required #adresa="ngModel" />
+            @if (adresa.invalid && (adresa.touched || formSubmitted)) {
+              <span class="field-error">Adresa de livrare este obligatorie.</span>
+            }
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="oras">Oraș <span class="required">*</span></label>
+              <input id="oras" type="text" class="form-input" placeholder="București"
+                [class.invalid]="oras.invalid && (oras.touched || formSubmitted)"
+                [(ngModel)]="form.oras" name="oras" required #oras="ngModel" />
+              @if (oras.invalid && (oras.touched || formSubmitted)) {
+                <span class="field-error">Orașul este obligatoriu.</span>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="judet">Județ <span class="required">*</span></label>
+              <input id="judet" type="text" class="form-input" placeholder="Sector 1"
+                [class.invalid]="judet.invalid && (judet.touched || formSubmitted)"
+                [(ngModel)]="form.judet" name="judet" required #judet="ngModel" />
+              @if (judet.invalid && (judet.touched || formSubmitted)) {
+                <span class="field-error">Județul este obligatoriu.</span>
+              }
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="codPostal">Cod poștal</label>
+              <input id="codPostal" type="text" class="form-input" placeholder="010101"
+                [(ngModel)]="form.codPostal" name="codPostal" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="observatii">Observații</label>
+            <textarea id="observatii" class="form-textarea" rows="3"
+              placeholder="Detalii suplimentare pentru curier…"
+              [(ngModel)]="form.observatii" name="observatii"></textarea>
+          </div>
+
+          <div class="payment-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+            </svg>
+            Plată ramburs — achiți la curier, în momentul livrării.
+          </div>
+
+          @if (eroare) {
+            <p class="form-error">{{ eroare }}</p>
+          }
+
+          <button type="submit" class="btn-primary checkout-submit-btn" [disabled]="seTrimite">
+            @if (seTrimite) { Se trimite comanda… } @else { Plasează comanda }
+          </button>
+        </form>
+
+        <aside class="checkout-summary">
+          <h2>Comanda ta</h2>
+          @for (item of cartService.items(); track item.id) {
+            <div class="checkout-summary-row">
+              <span>{{ item.nume }} <span class="qty">× {{ item.cantitate }}</span></span>
+              <span>{{ item.pret * item.cantitate | currency:'RON':'symbol':'1.0-0' }}</span>
+            </div>
+          }
+          <div class="checkout-summary-total">
+            <span>Total</span>
+            <span>{{ cartService.total() | currency:'RON':'symbol':'1.0-0' }}</span>
+          </div>
+        </aside>
+
+      </div>
+    }
+
+  </div>
+</section>

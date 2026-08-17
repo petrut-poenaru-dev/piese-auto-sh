@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { AdminCar, AdminCarInput, AdminPart } from '../shared/models';
+import { AdminCar, AdminCarImage, AdminCarInput, AdminPart } from '../shared/models';
 
 export type AdminPartInput = Omit<AdminPart, 'id'>;
 
@@ -42,5 +42,19 @@ export class AdminCarsService {
 
   removePart(partId: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/parts/${partId}`);
+  }
+
+  uploadImages(carId: string, files: File[]): Observable<AdminCarImage[]> {
+    const form = new FormData();
+    for (const file of files) form.append('images', file);
+    return this.http.post<AdminCarImage[]>(`${this.baseUrl}/cars/${carId}/images`, form);
+  }
+
+  removeImage(imageId: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/images/${imageId}`);
+  }
+
+  reorderImages(carId: string, ids: string[]): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/cars/${carId}/images/reorder`, { ids });
   }
 }

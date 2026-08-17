@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,8 +10,16 @@ import { RouterLink } from '@angular/router';
 })
 export class ContactComponent {
 
-  formSuccess = false;
-  formLoading = false;
+  // Număr de test — va fi înlocuit cu numărul final de WhatsApp al firmei.
+  private readonly whatsappNumber = '40757600008';
+
+  private readonly subjectLabels: Record<string, string> = {
+    piesa: 'Cerere piesă auto',
+    garantie: 'Garanție piesă',
+    livrare: 'Informații livrare',
+    retur: 'Retur / Schimb',
+    altele: 'Altele',
+  };
 
   form = {
     name: '',
@@ -21,16 +29,28 @@ export class ContactComponent {
     message: ''
   };
 
-  onSubmit(): void {
-    if (!this.form.name || !this.form.email || !this.form.message) return;
-    this.formLoading = true;
+  formSubmitted = false;
+  eroare = '';
 
-    // Simulate API call
-    setTimeout(() => {
-      this.formLoading = false;
-      this.formSuccess = true;
-      this.form = { name: '', email: '', phone: '', subject: '', message: '' };
-      setTimeout(() => this.formSuccess = false, 6000);
-    }, 1000);
+  onSubmit(contactForm: NgForm): void {
+    this.formSubmitted = true;
+
+    if (contactForm.invalid) {
+      contactForm.form.markAllAsTouched();
+      this.eroare = 'Datele introduse sunt invalide. Completează toate câmpurile obligatorii marcate cu *.';
+      return;
+    }
+
+    this.eroare = '';
+    const subjectLabel = this.subjectLabels[this.form.subject] ?? this.form.subject;
+    const text = [
+      `Nume: ${this.form.name}`,
+      `Email: ${this.form.email}`,
+      `Telefon: ${this.form.phone}`,
+      `Subiect: ${subjectLabel}`,
+      `Mesaj: ${this.form.message}`,
+    ].join('\n');
+
+    window.location.href = `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(text)}`;
   }
 }

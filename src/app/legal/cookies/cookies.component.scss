@@ -1,0 +1,22 @@
+@use '../legal-page' as *;
+:host { display: block; }
+
+.legal-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.875rem;
+
+  th, td {
+    text-align: left;
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--outline-ghost);
+    color: var(--on-surface-var);
+  }
+
+  th {
+    color: var(--on-surface);
+    font-weight: 700;
+    font-size: 0.8125rem;
+  }
+}

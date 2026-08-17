@@ -23,33 +23,51 @@
 
       <!-- ── GALLERY COLUMN ── -->
       <div class="gallery-col">
-        <div class="main-img" [style.background]="masina.bg">
-          <svg class="car-icon" width="160" height="160" viewBox="0 0 120 120" fill="none">
-            <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
-              stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 74 L106 74 Q108 74 108 78 L108 84 L12 84 L12 78 Q12 74 14 74 Z"
-              stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linejoin="round"/>
-            <circle cx="36" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-            <circle cx="84" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
-            <path d="M40 50 L56 50 L56 64 L33 64 Z M64 50 L78 50 Q83 51 86 56 L88 64 L64 64 Z"
-              stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-          <span class="view-label">{{ galleryViews[activeThumb] }}</span>
-        </div>
+        @if (masina.images.length) {
+          <div class="main-img" [style.background]="bgUrl(masina.images[activeThumb])"></div>
 
-        <div class="thumbs-row">
-          @for (view of galleryViews; track $index) {
-            <button
-              class="thumb"
-              type="button"
-              [class.active]="activeThumb === $index"
-              [style.background]="masina.bg"
-              (click)="activeThumb = $index"
-            >
-              <span class="thumb-label">{{ view }}</span>
-            </button>
+          @if (masina.images.length > 1) {
+            <div class="thumbs-row">
+              @for (img of masina.images; track img; let i = $index) {
+                <button
+                  class="thumb"
+                  type="button"
+                  [class.active]="activeThumb === i"
+                  [style.background]="bgUrl(img)"
+                  (click)="activeThumb = i"
+                ></button>
+              }
+            </div>
           }
-        </div>
+        } @else {
+          <div class="main-img" [style.background]="masina.bg">
+            <svg class="car-icon" width="160" height="160" viewBox="0 0 120 120" fill="none">
+              <path d="M18 74 L28 50 Q31 43 39 42 L78 42 Q86 43 91 50 L102 68"
+                stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 74 L106 74 Q108 74 108 78 L108 84 L12 84 L12 78 Q12 74 14 74 Z"
+                stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="36" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+              <circle cx="84" cy="84" r="9" fill="rgba(0,0,0,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+              <path d="M40 50 L56 50 L56 64 L33 64 Z M64 50 L78 50 Q83 51 86 56 L88 64 L64 64 Z"
+                stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            <span class="view-label">{{ galleryViews[activeThumb] }}</span>
+          </div>
+
+          <div class="thumbs-row">
+            @for (view of galleryViews; track $index) {
+              <button
+                class="thumb"
+                type="button"
+                [class.active]="activeThumb === $index"
+                [style.background]="masina.bg"
+                (click)="activeThumb = $index"
+              >
+                <span class="thumb-label">{{ view }}</span>
+              </button>
+            }
+          </div>
+        }
       </div>
 
 
@@ -175,7 +193,7 @@
       <div class="similare-grid">
         @for (s of similare; track s.id) {
           <a class="sim-card" [routerLink]="['/masina', s.id]">
-            <div class="sim-img" [style.background]="s.bg">
+            <div class="sim-img" [style.background]="coverStyle(s)">
               <span class="sim-an">{{ s.an }}</span>
             </div>
             <div class="sim-body">

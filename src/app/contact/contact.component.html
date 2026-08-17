@@ -122,21 +122,7 @@
           <h2 class="section-title">Cum te putem ajuta?</h2>
         </div>
 
-        @if (formSuccess) {
-          <div class="form-success">
-            <div class="success-icon">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </div>
-            <div>
-              <h4>Mesaj trimis cu succes!</h4>
-              <p>Îți vom răspunde în maxim 2 ore în zilele lucrătoare.</p>
-            </div>
-          </div>
-        }
-
-        <form class="contact-form" (ngSubmit)="onSubmit()" #contactForm="ngForm">
+        <form class="contact-form" (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
 
           <div class="form-row">
             <div class="form-group">
@@ -146,10 +132,15 @@
                 type="text"
                 class="form-input"
                 placeholder="Ion Popescu"
+                [class.invalid]="name.invalid && (name.touched || formSubmitted)"
                 [(ngModel)]="form.name"
                 name="name"
                 required
+                #name="ngModel"
               />
+              @if (name.invalid && (name.touched || formSubmitted)) {
+                <span class="field-error">Numele complet este obligatoriu.</span>
+              }
             </div>
             <div class="form-group">
               <label class="form-label" for="email">Adresă email <span class="required">*</span></label>
@@ -158,32 +149,47 @@
                 type="email"
                 class="form-input"
                 placeholder="ion@exemplu.ro"
+                [class.invalid]="email.invalid && (email.touched || formSubmitted)"
                 [(ngModel)]="form.email"
                 name="email"
                 required
+                email
+                #email="ngModel"
               />
+              @if (email.invalid && (email.touched || formSubmitted)) {
+                <span class="field-error">Adresa de email nu este validă.</span>
+              }
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label" for="phone">Telefon</label>
+              <label class="form-label" for="phone">Telefon <span class="required">*</span></label>
               <input
                 id="phone"
                 type="tel"
                 class="form-input"
                 placeholder="+40 7XX XXX XXX"
+                [class.invalid]="phone.invalid && (phone.touched || formSubmitted)"
                 [(ngModel)]="form.phone"
                 name="phone"
+                required
+                #phone="ngModel"
               />
+              @if (phone.invalid && (phone.touched || formSubmitted)) {
+                <span class="field-error">Telefonul este obligatoriu.</span>
+              }
             </div>
             <div class="form-group">
-              <label class="form-label" for="subject">Subiect</label>
+              <label class="form-label" for="subject">Subiect <span class="required">*</span></label>
               <select
                 id="subject"
                 class="form-select"
+                [class.invalid]="subject.invalid && (subject.touched || formSubmitted)"
                 [(ngModel)]="form.subject"
                 name="subject"
+                required
+                #subject="ngModel"
               >
                 <option value="">Selectează subiectul…</option>
                 <option value="piesa">Cerere piesă auto</option>
@@ -192,6 +198,9 @@
                 <option value="retur">Retur / Schimb</option>
                 <option value="altele">Altele</option>
               </select>
+              @if (subject.invalid && (subject.touched || formSubmitted)) {
+                <span class="field-error">Selectează un subiect.</span>
+              }
             </div>
           </div>
 
@@ -202,11 +211,20 @@
               class="form-textarea"
               placeholder="Descrie piesa de care ai nevoie, marca și modelul mașinii, sau orice altă întrebare…"
               rows="5"
+              [class.invalid]="message.invalid && (message.touched || formSubmitted)"
               [(ngModel)]="form.message"
               name="message"
               required
+              #message="ngModel"
             ></textarea>
+            @if (message.invalid && (message.touched || formSubmitted)) {
+              <span class="field-error">Mesajul este obligatoriu.</span>
+            }
           </div>
+
+          @if (eroare) {
+            <p class="form-error">{{ eroare }}</p>
+          }
 
           <div class="form-footer">
             <p class="form-note">
@@ -219,18 +237,12 @@
             <button
               type="submit"
               class="btn-primary submit-btn"
-              [disabled]="formLoading"
             >
-              @if (formLoading) {
-                <span class="spinner"></span>
-                Se trimite…
-              } @else {
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <line x1="22" y1="2" x2="11" y2="13"/>
-                  <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                </svg>
-                Trimite mesajul
-              }
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="currentColor" stroke="none"/>
+                <path d="M12.05 22a9.9 9.9 0 0 0 4.984-1.35l3.741 1.35-1.002-3.648A9.86 9.86 0 0 0 21.887 12c0-5.45-4.437-9.884-9.888-9.884S2.11 6.55 2.11 12c0 1.898.547 3.66 1.51 5.26"/>
+              </svg>
+              Trimite pe WhatsApp
             </button>
           </div>
 

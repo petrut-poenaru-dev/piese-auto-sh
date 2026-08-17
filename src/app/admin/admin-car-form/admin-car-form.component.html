@@ -161,6 +161,45 @@
       </button>
     </form>
 
+    <!-- ── POZE (doar după creare) ── -->
+    @if (mode === 'edit') {
+      <section class="form-card">
+        <h2 class="form-card-title">Poze ({{ images.length }})</h2>
+        <p class="form-card-subtitle">
+          Prima poză din listă apare ca imagine principală pe site. Dacă nu adaugi nicio poză, rămâne fundalul colorat ales mai sus.
+        </p>
+
+        @if (eroarePoze) {
+          <p class="form-error">{{ eroarePoze }}</p>
+        }
+
+        <div class="images-grid">
+          @for (img of images; track img.id; let i = $index) {
+            <div class="image-tile">
+              <img [src]="img.url" alt="Poză mașină" />
+              @if (i === 0) {
+                <span class="image-badge">Principală</span>
+              }
+              <div class="image-actions">
+                <button type="button" class="link-action" [disabled]="i === 0" (click)="mutaPoza(i, -1)">←</button>
+                <button type="button" class="link-action" [disabled]="i === images.length - 1" (click)="mutaPoza(i, 1)">→</button>
+                <button type="button" class="link-action link-danger" (click)="stergePoza(img)">Șterge</button>
+              </div>
+            </div>
+          }
+
+          <label class="image-upload-tile" [class.disabled]="seIncarcaPoze">
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" multiple hidden [disabled]="seIncarcaPoze" (change)="onImagesSelected($event)" />
+            @if (seIncarcaPoze) {
+              <span>Se încarcă…</span>
+            } @else {
+              <span>+ Adaugă poze</span>
+            }
+          </label>
+        </div>
+      </section>
+    }
+
     <!-- ── PIESE (doar mașini de dezmembrat, după creare) ── -->
     @if (mode === 'edit' && esteDezmembrat) {
       <section class="form-card parts-card">

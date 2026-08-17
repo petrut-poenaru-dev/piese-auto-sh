@@ -16,7 +16,7 @@
     <div class="header-grid">
 
       <!-- POZA -->
-      <div class="masina-foto" [style.background]="masina.bg">
+      <div class="masina-foto" [style.background]="coverStyle(masina)">
         <svg viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg" class="car-thumb">
           <path d="M22 62 Q22 50 38 48 L70 44 Q86 32 110 32 L150 34 Q170 36 184 50 L196 54 Q204 56 204 62 L204 66 Q204 68 200 68 L24 68 Q22 68 22 66 Z"
                 fill="rgba(255,255,255,0.06)" stroke="currentColor" stroke-width="2.2"/>
@@ -95,7 +95,9 @@
               @if (p.disponibil) {
                 <span class="stare-badge" [class]="stareClass(p.stare)">{{ p.stare }}</span>
                 <span class="piesa-pret">{{ p.pret | currency:'RON':'symbol':'1.0-0' }}</span>
-                <a routerLink="/contact" class="btn-cere">Cere</a>
+                <button type="button" class="btn-cere" (click)="adaugaInCos(p)">
+                  @if (justAddedId === (p.id ?? p.cod)) { Adăugat ✓ } @else { Adaugă în coș }
+                </button>
               } @else {
                 <span class="indisp-text">Indisponibilă</span>
               }

@@ -12,6 +12,7 @@ export interface Masina {
   km: string;
   combustibil: string;
   bg: string;
+  images: string[];
 
   // Vânzare
   cutie?: string;
@@ -57,6 +58,7 @@ export interface MasinaDezmembrare {
   culoare: string;
   cod: string;
   bg: string;
+  images: string[];
   status: StatusMasina | string;
 
   grupe: GrupaPiese[];
@@ -69,6 +71,48 @@ export interface StatBrand {
   piese: number;
 }
 
+// ─── Coș & comenzi ────────────────────────────────────────────────────────
+
+export interface CartItem {
+  id: string; // cheie unică: id-ul piesei reale, sau SKU-ul produsului demo
+  nume: string;
+  cod?: string;
+  pret: number;
+  cantitate: number;
+}
+
+export interface OrderItemInput {
+  nume: string;
+  cod?: string;
+  pret: number;
+  cantitate: number;
+}
+
+export interface OrderItemDto extends OrderItemInput {
+  id: string;
+}
+
+export interface OrderInput {
+  nume: string;
+  telefon: string;
+  email?: string;
+  adresa: string;
+  oras: string;
+  judet: string;
+  codPostal?: string;
+  observatii?: string;
+  items: OrderItemInput[];
+}
+
+export interface Order extends Omit<OrderInput, 'items'> {
+  id: string;
+  items: OrderItemDto[];
+  metodaPlata: string;
+  status: string;
+  total: number;
+  createdAt: string;
+}
+
 // ─── Tipuri specifice zonei de admin ─────────────────────────────────────────
 
 export interface AdminPart {
@@ -79,6 +123,12 @@ export interface AdminPart {
   stare: string;
   pret: number;
   cod: string;
+}
+
+export interface AdminCarImage {
+  id: string;
+  url: string;
+  order: number;
 }
 
 export interface AdminCar {
@@ -104,6 +154,7 @@ export interface AdminCar {
   disponibilitate?: string;
   descriere: string;
   dotari: string[];
+  images: AdminCarImage[];
   parts: AdminPart[];
   totalPiese: number;
   totalCatalog: number;
@@ -113,5 +164,11 @@ export interface AdminCar {
 
 export type AdminCarInput = Omit<
   AdminCar,
-  'id' | 'slug' | 'parts' | 'totalPiese' | 'totalCatalog' | 'createdAt' | 'updatedAt'
+  'id' | 'slug' | 'images' | 'parts' | 'totalPiese' | 'totalCatalog' | 'createdAt' | 'updatedAt'
 >;
+
+// Fundal pentru card: prima poză reală dacă există, altfel gradientul placeholder.
+export function coverStyle(car: { bg: string; images?: string[] }): string {
+  const cover = car.images?.[0];
+  return cover ? `url('${cover}') center/cover no-repeat` : car.bg;
+}

@@ -1,0 +1,125 @@
+// ═══════════════════════════════════════════════════════════
+// SHARED STYLES — pagini legale (Termeni, Confidențialitate, Cookie-uri)
+// Importat cu @use în fiecare *.component.scss din src/app/legal/**
+// ═══════════════════════════════════════════════════════════
+
+.page-header {
+  padding: 7rem 0 3.5rem;
+  background: var(--surface-low);
+  text-align: center;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8125rem;
+  color: var(--on-surface-var);
+
+  a {
+    color: var(--tertiary);
+    text-decoration: none;
+    font-weight: 600;
+    &:hover { text-decoration: underline; }
+  }
+
+  .sep { opacity: 0.5; }
+}
+
+.page-title {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 800;
+  color: var(--on-surface);
+  letter-spacing: -0.03em;
+  margin: 0 0 0.75rem;
+}
+
+.page-updated {
+  color: var(--on-surface-var);
+  font-size: 0.875rem;
+}
+
+.legal-section {
+  padding: 3.5rem 0 5rem;
+}
+
+.legal-layout {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.legal-notice {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 2.5rem;
+  background: #fdf6e8;
+  border: 1px solid #f0deb0;
+  border-left: 3px solid #c9971f;
+  border-radius: 8px;
+  color: #7a5b0f;
+  font-size: 0.875rem;
+  line-height: 1.6;
+
+  svg { flex-shrink: 0; margin-top: 0.15rem; color: #c9971f; }
+  strong { color: #5e460c; }
+}
+
+.legal-body {
+  color: var(--on-surface);
+  line-height: 1.75;
+  font-size: 0.9375rem;
+
+  h2 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin: 2.5rem 0 1rem;
+
+    &:first-of-type { margin-top: 0; }
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p { margin: 0 0 1rem; color: var(--on-surface-var); }
+
+  ul, ol {
+    margin: 0 0 1rem;
+    padding-left: 1.25rem;
+    color: var(--on-surface-var);
+
+    li { margin-bottom: 0.5rem; }
+  }
+
+  a { color: var(--tertiary); font-weight: 600; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  strong { color: var(--on-surface); }
+
+  .fill-in {
+    background: #fdf6e8;
+    color: #7a5b0f;
+    padding: 0.05rem 0.35rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875em;
+  }
+
+  .legal-card {
+    background: var(--surface);
+    border: 1px solid var(--outline-ghost);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 1rem;
+
+    p:last-child { margin-bottom: 0; }
+  }
+}

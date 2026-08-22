@@ -7,7 +7,6 @@ import { PieseCategorieComponent } from './piese-categorie/piese-categorie.compo
 import { MasinaDetaliuComponent } from './masina-detaliu/masina-detaliu.component';
 import { MasiniListComponent } from './masini-list/masini-list.component';
 import { ProduseComponent } from './produse/produse.component';
-import { VinSearchComponent } from './vin-search/vin-search.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
@@ -24,7 +23,6 @@ export const routes: Routes = [
   { path: 'produse',                component: ProduseComponent },
   { path: 'masini/:tip',            component: MasiniListComponent },
   { path: 'masina/:id',             component: MasinaDetaliuComponent },
-  { path: 'cauta-vin',              component: VinSearchComponent },
   { path: 'cos',                    component: CartComponent },
   { path: 'checkout',               component: CheckoutComponent },
 

@@ -751,7 +751,13 @@
 }
 
 @media (max-width: 768px) {
-  .hero-section { height: auto; padding: 7rem 0 4rem; }
+  .hero-section { height: auto; padding: 0; }
+
+  .hero-content {
+    position: relative;
+    inset: auto;
+    padding: 7rem 1.5rem 4rem;
+  }
 
   .products-grid,
   .testimonials-grid { grid-template-columns: 1fr; }

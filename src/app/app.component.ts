@@ -21,7 +21,10 @@ export class AppComponent {
   constructor() {
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe(e => this.isAdminRoute.set(e.urlAfterRedirects.startsWith('/admin')));
+      .subscribe(e => {
+        this.isAdminRoute.set(e.urlAfterRedirects.startsWith('/admin'));
+        this.mobileMenuOpen = false;
+      });
   }
 
   @HostListener('window:scroll')

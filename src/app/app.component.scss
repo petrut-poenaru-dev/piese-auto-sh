@@ -13,12 +13,22 @@
   inset: 0 0 auto;
   z-index: 200;
   padding: 1rem 0;
-  // Dark frosted glass — mereu vizibil indiferent de fundalul paginii
-  background: rgba(18, 23, 30, 0.82);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: padding 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  // Fundalul frosted-glass stă pe un pseudo-element dedicat: backdrop-filter
+  // pus direct pe .navbar creează un containing block nou pentru copiii
+  // position:fixed (ex. meniul mobil), rupându-le poziționarea față de viewport.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(18, 23, 30, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: background 0.3s ease;
+  }
 
   // Text alb implicit (pe fundal întunecat)
   .logo-text      { color: #fff; }
@@ -27,34 +37,23 @@
   .nav-icon-btn   { color: rgba(255, 255, 255, 0.75); &:hover { color: #fff; background: rgba(255,255,255,0.08); } }
   .hamburger span { background: rgba(255, 255, 255, 0.9); }
 
-  .nav-vin-link {
-    background: rgba(52, 211, 153, 0.14) !important;
-    color: #34d399 !important;
-    &:hover { background: rgba(52, 211, 153, 0.24) !important; }
-    &.nav-active { background: rgba(52, 211, 153, 0.22) !important; }
-  }
-
   // La scroll → fundal alb cu text închis
   &.scrolled {
-    background: rgba(255, 255, 255, 0.93);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
     border-bottom-color: rgba(172, 179, 184, 0.18);
     padding: 0.75rem 0;
     box-shadow: 0 4px 32px rgba(45, 51, 56, 0.07);
+
+    &::before {
+      background: rgba(255, 255, 255, 0.93);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
 
     .logo-text      { color: var(--on-surface); }
     .nav-links a    { color: var(--primary); &:hover { color: var(--on-surface); } }
     .nav-links a.nav-active { color: var(--tertiary); }
     .nav-icon-btn   { color: var(--primary); &:hover { color: var(--on-surface); background: var(--surface-low); } }
     .hamburger span { background: var(--on-surface); }
-
-    .nav-vin-link {
-      background: rgba(0, 108, 91, 0.10) !important;
-      color: var(--tertiary) !important;
-      &:hover { background: rgba(0, 108, 91, 0.18) !important; }
-      &.nav-active { background: rgba(0, 108, 91, 0.16) !important; }
-    }
   }
 }
 
@@ -104,18 +103,6 @@
 
   // Active route — culoarea vine din .navbar context
   a.nav-active { font-weight: 600; }
-
-  // VIN chip — layout și dimensiuni (culorile vin din .navbar context)
-  .nav-vin-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    padding: 0.3rem 0.7rem;
-    border-radius: 999px;
-    font-weight: 600 !important;
-    font-size: 0.8125rem !important;
-    transition: background 0.2s;
-  }
 }
 
 .nav-actions {
@@ -358,21 +345,42 @@
 
 @media (max-width: 768px) {
   .nav-links {
-    display: none;
-    position: fixed;
-    inset: 0;
-    top: 60px;
+    display: flex;
+    position: absolute;
+    inset: auto 0 auto 0;
+    top: 100%;
+    width: 100%;
     background: rgba(255, 255, 255, 0.97);
     backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(172, 179, 184, 0.18);
+    box-shadow: 0 16px 40px rgba(23, 27, 31, 0.16);
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.25rem;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0.5rem 1.5rem;
     z-index: 199;
+    opacity: 0;
+    transform: translateY(-6px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
 
-    &.open { display: flex; }
+    &.open { opacity: 1; transform: translateY(0); visibility: visible; pointer-events: auto; }
 
-    a { font-size: 1.125rem; color: var(--on-surface) !important; }
+    li { width: 100%; border-bottom: 1px solid var(--outline-ghost); &:last-child { border-bottom: none; } }
+
+    a {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--on-surface) !important;
+      padding: 1rem 0.25rem;
+      transition: color 0.15s;
+
+      &:hover { color: var(--tertiary) !important; }
+    }
   }
 
   .nav-cta   { display: none; }

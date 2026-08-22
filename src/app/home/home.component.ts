@@ -60,12 +60,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   faqs = [
     {
-      q: 'Piesele sunt originale OEM?',
-      a: 'Da, toate piesele noastre provin din dezmembrări certificate și sunt verificate individual înainte de vânzare. Garantăm autenticitatea fiecărei piese.'
+      q: 'Pot primi răspuns pe WhatsApp?',
+      a: 'Da, ne poți scrie oricând pe WhatsApp la 0742 658 000 sau 0757 600 008, ori direct din formularul de pe pagina de Contact. Răspundem de obicei în câteva ore, în intervalul de program.'
     },
     {
-      q: 'Cum verific compatibilitatea cu mașina mea?',
-      a: 'Puteți verifica compatibilitatea folosind numărul VIN al vehiculului în pagina Caută VIN sau contactând echipa noastră.'
+      q: 'Care este programul vostru?',
+      a: 'Suntem disponibili Luni – Vineri, 08:00 – 18:00. În afara programului poți lăsa un mesaj pe WhatsApp sau email și revenim a doua zi.'
+    },
+    {
+      q: 'Unde este locația voastră?',
+      a: 'Ne găsești în Goșmani, comuna Români, județul Neamț. Vezi harta și indicațiile exacte pe pagina de Contact.'
+    },
+    {
+      q: 'Cum verific compatibilitatea piesei cu mașina mea?',
+      a: 'Trimite-ne marca, modelul și anul mașinii telefonic, pe WhatsApp sau prin formularul de contact și te ajutăm să identifici piesa corectă.'
     },
     {
       q: 'Oferiți garanție pentru piese?',
@@ -91,7 +99,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     {
       name: 'Cristina P.',
       city: 'Cluj-Napoca',
-      text: 'Echipă profesionistă, m-au ajutat să identific piesa corectă după VIN. Recomand cu căldură!',
+      text: 'Echipă profesionistă, m-au ajutat să identific piesa corectă pentru mașina mea. Recomand cu căldură!',
       stars: 5
     },
     {
@@ -105,6 +113,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   // ── Mașini (încărcate din API, folosite și pe pagina de detaliu) ──
   masiniVanzare: Masina[] = [];
   masiniDezmembrat: Masina[] = [];
+
+  // Fallback pentru secțiunea "Produse Recomandate" cât timp nu există produse reale în DB —
+  // arătăm ce avem momentan la dezmembrat.
+  get masiniRecomandate(): Masina[] {
+    return this.masiniDezmembrat.slice(0, 3);
+  }
 
   activeFaq: number | null = null;
 
